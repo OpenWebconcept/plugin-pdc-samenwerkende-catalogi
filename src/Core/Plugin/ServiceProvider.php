@@ -1,6 +1,6 @@
 <?php
 
-namespace OWC_PDC_Base\Core\Plugin;
+namespace OWC_SC\Core\Plugin;
 
 abstract class ServiceProvider
 {
@@ -8,7 +8,7 @@ abstract class ServiceProvider
     /**
      * Instance of the plugin.
      *
-     * @var \OWC_PDC_Base\Core\Plugin\BasePlugin
+     * @var \OWC_SC\Core\Plugin\BasePlugin
      */
     protected $plugin;
 

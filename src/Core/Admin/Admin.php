@@ -1,9 +1,9 @@
 <?php
 
-namespace OWC_PDC_Base\Core\Admin;
+namespace OWC_SC\Core\Admin;
 
-use OWC_PDC_Base\Core\Plugin\ServiceProvider;
-use OWC_PDC_Base\Core\Plugin\BasePlugin;
+use OWC_SC\Core\Plugin\ServiceProvider;
+use OWC_SC\Core\Plugin\BasePlugin;
 
 class Admin
 {
@@ -11,21 +11,21 @@ class Admin
     /**
      * Instance of the plugin.
      *
-     * @var $plugin \OWC_PDC_Base\Core\Plugin
+     * @var $plugin \OWC_SC\Core\Plugin
      */
     protected $plugin;
 
     /**
      * Instance of the actions and filters loader.
      *
-     * @var $plugin \OWC_PDC_Base\Core\Plugin\Loader
+     * @var $plugin \OWC_SC\Core\Plugin\Loader
      */
     protected $loader;
 
     /**
      * Admin constructor.
      *
-     * @param \OWC_PDC_Base\Core\Plugin\BasePLugin $plugin
+     * @param \OWC_SC\Core\Plugin\BasePLugin $plugin
      */
     public function __construct(BasePlugin $plugin)
     {
@@ -56,7 +56,7 @@ class Admin
             }
 
             /**
-             * @var \OWC_PDC_Base\Core\Plugin\ServiceProvider $service
+             * @var \OWC_SC\Core\Plugin\ServiceProvider $service
              */
             $service->register();
         }

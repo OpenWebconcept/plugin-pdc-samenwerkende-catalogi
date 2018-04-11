@@ -3,7 +3,7 @@
 /**
  * PHPUnit bootstrap file
  *
- * @package OWC_PDC_Base
+ * @package OWC_SC
  */
 
 //$_tests_dir = getenv( 'WP_TESTS_DIR' );
@@ -21,7 +21,6 @@
  * Load dependencies with Composer autoloader.
  */
 require __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../src/vendor/johnbillion/extended-cpts/extended-cpts.php';
 
 /**
  * Bootstrap WordPress Mock.
@@ -29,8 +28,8 @@ require_once __DIR__ . '/../src/vendor/johnbillion/extended-cpts/extended-cpts.p
 \WP_Mock::setUsePatchwork( true );
 \WP_Mock::bootstrap();
 
-$GLOBALS['pdc-base'] = array(
-	'active_plugins' => array( 'pdc-base/pdc-base.php' ),
+$GLOBALS['samenwerkende-catalogi'] = array(
+	'active_plugins' => array( 'samenwerkende-catalogi/samenwerkende-catalogi.php' ),
 );
 
 class WP_CLI {

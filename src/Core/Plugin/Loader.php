@@ -1,6 +1,6 @@
 <?php
 
-namespace OWC_PDC_Base\Core\Plugin;
+namespace OWC_SC\Core\Plugin;
 
 class Loader
 {

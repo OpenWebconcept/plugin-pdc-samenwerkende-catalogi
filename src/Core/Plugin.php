@@ -1,8 +1,8 @@
 <?php
 
-namespace OWC_PDC_Base\Core;
+namespace OWC_SC\Core;
 
-use OWC_PDC_Base\Core\Plugin\BasePlugin;
+use OWC_SC\Core\Plugin\BasePlugin;
 
 class Plugin extends BasePlugin
 {

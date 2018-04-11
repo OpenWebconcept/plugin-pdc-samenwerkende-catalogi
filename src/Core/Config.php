@@ -1,6 +1,6 @@
 <?php
 
-namespace OWC_PDC_Base\Core;
+namespace OWC_SC\Core;
 
 class Config
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace OWC_PDC_Base\Core\Tests\Config;
+namespace OWC_SC\Core\Tests\Config;
 
-use OWC_PDC_Base\Core\Config;
-use OWC_PDC_Base\Core\Tests\TestCase;
+use OWC_SC\Core\Config;
+use OWC_SC\Core\Tests\TestCase;
 
 class RepositoryTest extends TestCase
 {
 
     /**
-     * @var \OWC_PDC_Base\Core\Config
+     * @var \OWC_SC\Core\Config
      */
     protected $repository;
 
