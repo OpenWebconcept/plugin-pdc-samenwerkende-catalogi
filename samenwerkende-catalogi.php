@@ -1,19 +1,19 @@
 <?php
 /**
- * Plugin Name:       PDC Base
+ * Plugin Name:       Samenwerkende Catalogi
  * Plugin URI:        https://www.openwebconcept.nl/
- * Description:       Plugin to act as foundation for other PDC related content plugins. This plugin implements actions to allow for other plugins to add and/or change Custom Posttypes, Metaboxes, Taxonomies, en Posts 2 posts relations.
+ * Description:       Plugin to create a XML feed according to the Samenwerkende Catalogi requirements.
  * Version:           0.1
  * Author:            Edwin Siebel, Ruud Laan
  * Author URI:        https://www.yarddigital.nl/
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
- * Text Domain:       pdc-base
+ * Text Domain:       samenwerkende-catalogi
  * Domain Path:       /languages
  */
 
-use OWC_PDC_Base\Core\Autoloader;
-use OWC_PDC_Base\Core\Plugin;
+use OWC_SC\Core\Autoloader;
+use OWC_SC\Core\Plugin;
 
 /**
  * If this file is called directly, abort.
