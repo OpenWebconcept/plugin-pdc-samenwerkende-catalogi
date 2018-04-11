@@ -65,8 +65,6 @@ class ScProductModel
 	 */
 	private function getMetaKern()
 	{
-		global $post;
-
 		$gemeente                    = "Buren";
 		$gemeente_onderwerp_url      = "https://www.buren.nl/onderwerp/";
 		$gemeente_resourceIdentifier = "http://standaarden.overheid.nl/owms/terms/Buren_(gemeente)";
