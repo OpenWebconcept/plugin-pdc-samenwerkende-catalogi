@@ -6,11 +6,17 @@ use OWC_SC\Core\Plugin\ServiceProvider;
 
 class FeedServiceProvider extends ServiceProvider
 {
+	const PREFIX = '_owc_';
 
 	/**
 	 * @var $xml DomDocument
 	 */
 	public $xml;
+
+	/**
+	 * @var $settings array
+	 */
+	private $settings;
 
 	public function register()
 	{
@@ -61,6 +67,12 @@ class FeedServiceProvider extends ServiceProvider
 
 	public function add_xml_feed()
 	{
+		$this->settings = get_option(self::PREFIX . 'pdc_base_settings');
+
+		$town_council_label         = esc_attr($this->settings[self::PREFIX.'setting_town_council_label']);
+		$town_council_onderwerp_url = esc_url(trailingslashit($this->settings[self::PREFIX.'setting_portal_url']) . trailingslashit($this->settings[self::PREFIX.'setting_portal_pdc_item_slug']));
+		$town_council_uri           = esc_url($this->settings[self::PREFIX.'setting_town_council_uri']);
+
 		// "Create" the document.
 		$this->xml = new \DOMDocument("1.0", "utf-8");
 
@@ -91,12 +103,35 @@ class FeedServiceProvider extends ServiceProvider
 
 			global $post;
 
+			$doelgroepTerms = get_the_terms(get_the_ID(), 'pdc-doelgroep');
+			$doelgroepen    = ['particulier'];
+			if ( ! is_wp_error($doelgroepTerms) && ! empty($doelgroepTerms) ) {
+
+				$doelgroepen = [];
+				foreach ( $doelgroepTerms as $doelgroepTerm ) {
+
+					switch ( $doelgroepTerm->slug ) {
+						case 'bewoners':
+							$doelgroepen[] = 'particulier';
+							break;
+						case 'ondernemers':
+							$doelgroepen[] = 'ondernemer';
+							break;
+					}
+				}
+			}
+
 			$scProductArgs = [
-				'id' => get_the_ID(),
-				'slug' => $post->post_name,
-				'title' => get_the_title(),
-				'excerpt' => get_the_excerpt(),
-				'modified' => get_the_modified_date('Y-m-d')
+				'id'                         => get_the_ID(),
+				'slug'                       => $post->post_name,
+				'title'                      => get_the_title(),
+				'excerpt'                    => get_the_excerpt(),
+				'modified'                   => get_the_modified_date('Y-m-d'),
+				'digid'                      => has_term('digid', 'pdc-aspect'),
+				'doelgroepen'                => $doelgroepen,
+				'town_council_label'         => $town_council_label,
+				'town_council_onderwerp_url' => $town_council_onderwerp_url,
+				'town_council_uri'           => $town_council_uri
 			];
 
 			$scProduct = new ScProductModel( $this, $scProductArgs );

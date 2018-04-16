@@ -65,9 +65,6 @@ class ScProductModel
 	 */
 	private function getMetaKern()
 	{
-		$gemeente                    = "Buren";
-		$gemeente_onderwerp_url      = "https://www.buren.nl/onderwerp/";
-		$gemeente_resourceIdentifier = "http://standaarden.overheid.nl/owms/terms/Buren_(gemeente)";
 
 		$owmskern = $this->feed->xml->createElement("overheidproduct:owmskern");
 
@@ -89,7 +86,7 @@ class ScProductModel
 					$cdata_string = 'nl';
 					break;
 				case 'identifier':
-					$cdata_string = trailingslashit($gemeente_onderwerp_url) . $this->args['slug'];
+					$cdata_string = trailingslashit($this->args['town_council_onderwerp_url']) . $this->args['slug'];
 					break;
 				case 'title':
 					$cdata_string = $this->args['title'];
@@ -105,7 +102,7 @@ class ScProductModel
 					$cdata_string = 'productbeschrijving';
 					break;
 				case 'spatial':
-					$cdata_string = $gemeente;
+					$cdata_string = $this->args['town_council_label'];
 
 					$dcterm->setAttribute(
 						'scheme',
@@ -113,7 +110,7 @@ class ScProductModel
 					);
 					$dcterm->setAttribute(
 						'resourceIdentifier',
-						$gemeente_resourceIdentifier
+						$this->args['town_council_uri']
 					);
 					break;
 			}
@@ -131,9 +128,9 @@ class ScProductModel
 		);
 		$authority->setAttribute(
 			'resourceIdentifier',
-			$gemeente_resourceIdentifier
+			$this->args['town_council_uri']
 		);
-		$cdata = $this->feed->xml->createCDATASection($gemeente);
+		$cdata = $this->feed->xml->createCDATASection($this->args['town_council_label']);
 		$authority->appendChild($cdata);
 
 		$owmskern->appendChild($authority);
@@ -151,25 +148,7 @@ class ScProductModel
 	{
 		$owmsmantel = $this->feed->xml->createElement("overheidproduct:owmsmantel");
 
-		$doelgroepTerms = get_the_terms(get_the_ID(), 'pdc-doelgroep');
-
-		$doelgroepen = ['particulier'];
-		if ( ! empty($doelgroepTerms) ) {
-			$doelgroepen = [];
-			foreach ( $doelgroepTerms as $doelgroepTerm ) {
-
-				switch ( $doelgroepTerm->slug ) {
-					case 'bewoners':
-						$doelgroepen[] = 'particulier';
-						break;
-					case 'ondernemers':
-						$doelgroepen[] = 'ondernemer';
-						break;
-				}
-			}
-		}
-
-		foreach ( $doelgroepen as $doelgroep ) {
+		foreach ( $this->args['doelgroepen'] as $doelgroep ) {
 
 			$dcterm = $this->feed->xml->createElement("dcterms:audience", $doelgroep);
 			$dcterm->setAttribute(
@@ -201,12 +180,12 @@ class ScProductModel
 		$scMeta = $this->feed->xml->createElement("overheidproduct:scmeta");
 
 		$productId = $this->feed->xml->createElement("overheidproduct:productID");
-		$cdata                         = $this->feed->xml->createCDATASection(get_the_ID());
+		$cdata     = $this->feed->xml->createCDATASection($this->args['id']);
 		$productId->appendChild($cdata);
 		$scMeta->appendChild($productId);
 
 		$kenmerk = 'nee';
-		if ( has_term('digid', 'pdc-aspect') ) {
+		if ( true === $this->args['digid'] ) {
 			$kenmerk = 'digid';
 		}
 
