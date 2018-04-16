@@ -1,0 +1,59 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Samenwerkende Catalogi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-16 12:37+0000\n"
+"PO-Revision-Date: 2018-04-16 12:56+0000\n"
+"Last-Translator: Minda <ruud@yard.nl>\n"
+"Language-Team: Dutch\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#. Author of the plugin
+msgid "Edwin Siebel, Ruud Laan"
+msgstr ""
+
+#: config/settings.php:13
+msgid "Gemeente Label"
+msgstr ""
+
+#: config/settings.php:19
+msgid "Gemeente URI"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://www.openwebconcept.nl/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.yarddigital.nl/"
+msgstr ""
+
+#: config/settings.php:7
+msgctxt "instellingen onderdeel"
+msgid "Samenwerkende Catalogi"
+msgstr ""
+
+#: config/settings.php:14
+msgid ""
+"Label vanuit deze lijst http://standaarden.overheid.nl/owms/terms/Gemeente"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Plugin to create a XML feed according to the Samenwerkende Catalogi "
+"requirements."
+msgstr "Plugin om de Samenwerkende Catalogi XML feed te maken"
+
+#. Name of the plugin
+msgid "Samenwerkende Catalogi"
+msgstr ""
+
+#: config/settings.php:20
+msgid ""
+"URI vanuit deze lijst http://standaarden.overheid.nl/owms/terms/Gemeente"
+msgstr ""
