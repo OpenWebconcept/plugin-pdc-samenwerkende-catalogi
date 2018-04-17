@@ -2,6 +2,8 @@
 
 namespace OWC_SC\Core\Feed;
 
+use OWC_SC\Core\Feed\FeedServiceProvider;
+
 class ScProductModel
 {
 
@@ -17,15 +19,10 @@ class ScProductModel
 	protected $args;
 
 
-	public function __construct( $feed, $args )
+	public function __construct( FeedServiceProvider $feed, array $args = [] )
 	{
-		if ( ! empty( $feed ) && is_a( $feed, 'OWC_SC\Core\Feed\FeedServiceProvider' ) ) {
-			$this->feed = $feed;
-		}
-
-		if ( ! empty( $args ) ) {
-			$this->args = $args;
-		}
+		$this->feed = $feed;
+		$this->args = $args;
 	}
 
 	public function getXML() {
@@ -86,7 +83,7 @@ class ScProductModel
 					$cdata_string = 'nl';
 					break;
 				case 'identifier':
-					$cdata_string = trailingslashit($this->args['town_council_onderwerp_url']) . $this->args['slug'];
+					$cdata_string = $this->args['town_council_onderwerp_url'] . $this->args['slug'];
 					break;
 				case 'title':
 					$cdata_string = $this->args['title'];

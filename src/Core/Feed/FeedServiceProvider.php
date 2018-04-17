@@ -21,8 +21,7 @@ class FeedServiceProvider extends ServiceProvider
 	public function register()
 	{
 		$this->plugin->loader->addAction('init', $this, 'registerFeeds');
-		$this->plugin->loader->addFilter('feed_content_type', $this, 'xml_feed_type', 10, 2);
-		$this->plugin->loader->addFilter('excerpt_more', $this, 'cleanup_excerpt_more', 11);
+		$this->plugin->loader->addFilter('feed_content_type', $this, 'xmlFeedType', 10, 2);
 	}
 
 	/**
@@ -30,7 +29,7 @@ class FeedServiceProvider extends ServiceProvider
 	 */
 	public function registerFeeds()
 	{
-		add_feed('sc', [$this, 'add_xml_feed']);
+		add_feed('sc', [$this, 'renderXmlFeed']);
 	}
 
 	/**
@@ -41,7 +40,7 @@ class FeedServiceProvider extends ServiceProvider
 	 *
 	 * @return mixed|void
 	 */
-	public function xml_feed_type($content_type, $type)
+	public function xmlFeedType($content_type, $type)
 	{
 		if ( 'sc' === $type ) {
 			return feed_content_type('rss-http');
@@ -50,22 +49,12 @@ class FeedServiceProvider extends ServiceProvider
 		return $content_type;
 	}
 
-	/**
-	 * Removes normal the excerpt "Read More" text
-	 *
-	 * @param $more
-	 *
-	 * @return string
-	 *
-	 */
-	function cleanup_excerpt_more($more)
+	public function renderXmlFeed()
 	{
-		if ( is_feed('sc') ) {
-			return '';
-		}
+		echo $this->createXmlFeed();
 	}
 
-	public function add_xml_feed()
+	public function createXmlFeed()
 	{
 		$this->settings = get_option(self::PREFIX . 'pdc_base_settings');
 
@@ -96,14 +85,14 @@ class FeedServiceProvider extends ServiceProvider
 			'meta_query'             => $meta_pdc_active_query
 		];
 
-		$pdcItems = new \WP_Query($args);
+		$query = new \WP_Query();
+		$pdcItems = $query->query($args);
 
-		while ( $pdcItems->have_posts() ) {
-			$pdcItems->the_post();
+		foreach ( $pdcItems as $pdcItem ) {
 
-			global $post;
+			$pdcItem = (array)$pdcItem;
 
-			$doelgroepTerms = get_the_terms(get_the_ID(), 'pdc-doelgroep');
+			$doelgroepTerms = get_the_terms($pdcItem['ID'], 'pdc-doelgroep');
 			$doelgroepen    = ['particulier'];
 			if ( ! is_wp_error($doelgroepTerms) && ! empty($doelgroepTerms) ) {
 
@@ -121,28 +110,31 @@ class FeedServiceProvider extends ServiceProvider
 				}
 			}
 
+			$excerpt =  $pdcItem['post_excerpt'];
+			if ( empty( $excerpt ) ) {
+				$excerpt =  wp_trim_words( $pdcItem['post_content'], 60 );
+			}
 			$scProductArgs = [
-				'id'                         => get_the_ID(),
-				'slug'                       => $post->post_name,
-				'title'                      => get_the_title(),
-				'excerpt'                    => get_the_excerpt(),
-				'modified'                   => get_the_modified_date('Y-m-d'),
-				'digid'                      => has_term('digid', 'pdc-aspect'),
+				'id'                         => $pdcItem['ID'],
+				'slug'                       => $pdcItem['post_name'],
+				'title'                      => $pdcItem['post_title'],
+				'excerpt'                    => $excerpt,
+				'modified'                   => date('Y-m-d', strtotime($pdcItem['post_modified_gmt'])),
+				'digid'                      => has_term('digid', 'pdc-aspect', $pdcItem['ID']),
 				'doelgroepen'                => $doelgroepen,
 				'town_council_label'         => $town_council_label,
 				'town_council_onderwerp_url' => $town_council_onderwerp_url,
 				'town_council_uri'           => $town_council_uri
 			];
 
-			$scProduct = new ScProductModel( $this, $scProductArgs );
-			$xml_producten->appendChild( $scProduct->getXML());
+			$scProduct = new ScProductModel($this, $scProductArgs);
+			$xml_producten->appendChild($scProduct->getXML());
 		}
 		wp_reset_postdata();
 
 		$this->xml->appendChild($xml_producten);
 
-		// Parse the XML.
-		print $this->xml->saveXML();
+		return $this->xml->saveXML();
 	}
 
 	private function get_sc_root_node()
