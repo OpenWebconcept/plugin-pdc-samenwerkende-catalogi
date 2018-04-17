@@ -7,8 +7,6 @@ use OWC_SC\Core\Plugin\ServiceProvider;
 class SettingsServiceProvider extends ServiceProvider
 {
 
-	const PREFIX = '_owc_sc_';
-
 	public function register()
 	{
 
