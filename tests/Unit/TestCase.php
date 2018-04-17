@@ -1,6 +1,6 @@
 <?php
 
-namespace OWC_SC\Core\Tests;
+namespace OWC_SC\Core\Tests\Unit;
 
 use PHPUnit\Framework\TestCase as PHPUnit;
 

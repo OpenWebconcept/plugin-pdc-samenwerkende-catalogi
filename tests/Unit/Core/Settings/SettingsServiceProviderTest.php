@@ -6,7 +6,7 @@ use Mockery as m;
 use OWC_SC\Core\Config;
 use OWC_SC\Core\Plugin\BasePlugin;
 use OWC_SC\Core\Plugin\Loader;
-use OWC_SC\Core\Tests\TestCase;
+use OWC_SC\Core\Tests\Unit\TestCase;
 
 class SettingsServiceProviderTest extends TestCase
 {

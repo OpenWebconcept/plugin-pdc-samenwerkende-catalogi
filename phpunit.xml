@@ -1,5 +1,5 @@
 <phpunit
-	bootstrap="tests/bootstrap.php"
+	bootstrap="tests/unit/bootstrap.php"
 	backupGlobals="false"
 	backupStaticAttributes="false"
 	colors="true"
@@ -13,8 +13,8 @@
 	verbose="true"
 >
 	<testsuites>
-		<testsuite name="OWC Samenwerkende Catalogi Plugin Test Suite">
-			<directory suffix="Test.php">./tests</directory>
+		<testsuite name="OWC Samenwerkende Catalogi Plugin Unit Test Suite">
+			<directory suffix="Test.php">./tests/unit</directory>
 		</testsuite>
 	</testsuites>
 	<filter>

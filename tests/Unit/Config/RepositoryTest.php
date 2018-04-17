@@ -3,7 +3,7 @@
 namespace OWC_SC\Core\Tests\Config;
 
 use OWC_SC\Core\Config;
-use OWC_SC\Core\Tests\TestCase;
+use OWC_SC\Core\Tests\Unit\TestCase;
 
 class RepositoryTest extends TestCase
 {
@@ -20,7 +20,7 @@ class RepositoryTest extends TestCase
 
     public function setUp()
     {
-        $this->repository = new Config(__DIR__.'/config');
+        $this->repository = new Config(__DIR__ . '/config');
         $this->repository->boot();
     }
 
