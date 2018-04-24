@@ -10,7 +10,7 @@ class SettingsServiceProvider extends ServiceProvider
 	public function register()
 	{
 
-		$this->plugin->loader->addFilter('owc/pdc_base/config/settings', $this, 'registerSettings', 10, 1);
+		$this->plugin->loader->addFilter('owc/pdc-base/config/settings', $this, 'registerSettings', 10, 1);
 	}
 
 	/**
@@ -23,7 +23,7 @@ class SettingsServiceProvider extends ServiceProvider
 	public function registerSettings($pdcBaseMetaboxes)
 	{
 
-		$configMetaboxes = (array)apply_filters('owc/pdc_sc/config/settings', $this->plugin->config->get('settings'));
+		$configMetaboxes = $this->plugin->config->get('settings');
 
 		return array_merge($pdcBaseMetaboxes, $configMetaboxes);
 	}

@@ -33,7 +33,7 @@ class SettingsServiceProviderTest extends TestCase
 		$service = new SettingsServiceProvider($plugin);
 
 		$plugin->loader->shouldReceive('addFilter')->withArgs([
-			'owc/pdc_base/config/settings',
+			'owc/pdc-base/config/settings',
 			$service,
 			'registerSettings',
 			10,

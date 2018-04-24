@@ -3,6 +3,7 @@
 namespace OWC_SC\Core;
 
 use OWC_SC\Core\Plugin\BasePlugin;
+use OWC_SC\Core\Admin\Admin;
 
 class Plugin extends BasePlugin
 {
@@ -25,9 +26,20 @@ class Plugin extends BasePlugin
     /**
      * Boot the plugin.
      */
-    public function boot()
-    {
+	public function boot()
+	{
+		$this->config->setPluginName($this->getName());
+		$this->config->setFilterExceptions(['core']);
+		$this->config->boot();
 
-    }
+		$this->bootServiceProviders();
 
+		if ( is_admin() ) {
+			$admin = new Admin($this);
+			$admin->boot();
+		}
+
+		$this->loader->addAction( 'init', $this->config, 'filter', 9);
+		$this->loader->register();
+	}
 }
