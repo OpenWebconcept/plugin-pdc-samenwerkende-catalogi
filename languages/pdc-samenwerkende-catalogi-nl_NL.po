@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Samenwerkende Catalogi\n"
+"Project-Id-Version: PDC Samenwerkende Catalogi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-16 12:37+0000\n"
-"PO-Revision-Date: 2018-04-16 13:06+0000\n"
+"POT-Creation-Date: 2018-04-25 08:07+0000\n"
+"PO-Revision-Date: 2018-04-25 08:10+0000\n"
 "Last-Translator: Minda <ruud@yard.nl>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -17,14 +17,6 @@ msgstr ""
 msgid "Edwin Siebel, Ruud Laan"
 msgstr ""
 
-#: config/settings.php:13
-msgid "Gemeente Label"
-msgstr ""
-
-#: config/settings.php:19
-msgid "Gemeente URI"
-msgstr ""
-
 #. URI of the plugin
 msgid "https://www.openwebconcept.nl/"
 msgstr ""
@@ -33,14 +25,13 @@ msgstr ""
 msgid "https://www.yarddigital.nl/"
 msgstr ""
 
-#: config/settings.php:7
-msgctxt "instellingen onderdeel"
-msgid "Samenwerkende Catalogi"
-msgstr ""
-
 #: config/settings.php:14
-msgid ""
+msgid "Label from this list http://standaarden.overheid.nl/owms/terms/Gemeente"
+msgstr ""
 "Label vanuit deze lijst http://standaarden.overheid.nl/owms/terms/Gemeente"
+
+#. Name of the plugin
+msgid "PDC Samenwerkende Catalogi"
 msgstr ""
 
 #. Description of the plugin
@@ -49,11 +40,20 @@ msgid ""
 "requirements."
 msgstr ""
 
-#. Name of the plugin
+#: config/settings.php:7
+msgctxt "title on settings page"
 msgid "Samenwerkende Catalogi"
 msgstr ""
 
+#: config/settings.php:13
+msgid "Town council Label"
+msgstr "Gemeente label"
+
+#: config/settings.php:19
+msgid "Town council URI"
+msgstr "Gemeente URI"
+
 #: config/settings.php:20
-msgid ""
-"URI vanuit deze lijst http://standaarden.overheid.nl/owms/terms/Gemeente"
+msgid "URI from this list http://standaarden.overheid.nl/owms/terms/Gemeente"
 msgstr ""
+"URI vanuit deze lijst http://standaarden.overheid.nl/owms/terms/Gemeente"

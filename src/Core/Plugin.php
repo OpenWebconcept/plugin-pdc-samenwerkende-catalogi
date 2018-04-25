@@ -13,7 +13,7 @@ class Plugin extends BasePlugin
      *
      * @var string
      */
-    const NAME = 'samenwerkende-catalogi';
+    const NAME = 'pdc-samenwerkende-catalogi';
 
     /**
      * Version of the plugin.
