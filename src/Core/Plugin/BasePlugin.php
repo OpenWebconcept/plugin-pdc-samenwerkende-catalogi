@@ -27,11 +27,6 @@ abstract class BasePlugin
 	public $loader;
 
 	/**
-	 * @var array with settings, see OWC_SC\Core\Settings\SettingsServiceProvider
-	 */
-	public $settings;
-
-	/**
 	 * Creates the base plugin functionality.
 	 *
 	 * Create startup hooks and tear down hooks.
