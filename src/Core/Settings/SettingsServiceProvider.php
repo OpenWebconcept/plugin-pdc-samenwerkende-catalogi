@@ -9,23 +9,20 @@ class SettingsServiceProvider extends ServiceProvider
 
 	public function register()
 	{
-
-		$this->plugin->loader->addFilter('owc/pdc-base/config/settings', $this, 'registerSettings', 10, 1);
+		$this->plugin->loader->addAction('owc/pdc-base/plugin', $this, 'registerSettings', 10, 1);
 	}
 
 	/**
-	 * register metaboxes for settings page
+	 * register metaboxes for settings page into pdc-base plugin
 	 *
-	 * @param $rwmbMetaboxes
+	 * @param $plugin
 	 *
-	 * @return array
+	 * @return $plugin OWC_PDC_Base\Core\Plugin
 	 */
-	public function registerSettings($pdcBaseMetaboxes)
+	public function registerSettings( $basePlugin )
 	{
-
 		$configMetaboxes = $this->plugin->config->get('settings');
-
-		return array_merge($pdcBaseMetaboxes, $configMetaboxes);
+		$basePlugin->config->set( 'settings.samenwerkende_catalogi', $configMetaboxes['samenwerkende_catalogi']);
 	}
 
 
