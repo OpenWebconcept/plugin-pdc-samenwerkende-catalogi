@@ -32,8 +32,8 @@ class SettingsServiceProviderTest extends TestCase
 
 		$service = new SettingsServiceProvider($plugin);
 
-		$plugin->loader->shouldReceive('addFilter')->withArgs([
-			'owc/pdc-base/config/settings',
+		$plugin->loader->shouldReceive('addAction')->withArgs([
+			'owc/pdc-base/plugin',
 			$service,
 			'registerSettings',
 			10,
@@ -42,9 +42,8 @@ class SettingsServiceProviderTest extends TestCase
 
 		$service->register();
 
-
-		$configMetaboxes = [
-			'samenwerkende-catalogi' => [
+		$settings = [
+			'samenwerkende_catalogi' => [
 				'id'             => 'metadata',
 				'settings_pages' => 'base_settings_page',
 				'fields'         => [
@@ -63,66 +62,15 @@ class SettingsServiceProviderTest extends TestCase
 			]
 		];
 
-		$existingMetaboxes = [
-			'base' => [
-				'id'             => 'metadata',
-				'settings_pages' => 'base_settings_page',
-				'fields'         => [
-					'general' => [
-						'testfield_noid' => [
-							'type' => 'heading'
-						],
-						'testfield1'     => [
-							'id' => 'metabox_id1'
-						],
-						'testfield2'     => [
-							'id' => 'metabox_id2'
-						]
-					]
-				]
-			]
-		];
+		$config->shouldReceive('get')->with('settings')->once()->andReturn($settings);
 
-		$expectedMetaboxesAfterMerge = [
+		$basePlugin         = new \StdClass();
+		$basePlugin->config = m::mock(Config::class);
 
-			'base' => [
-				'id'             => 'metadata',
-				'settings_pages' => 'base_settings_page',
-				'fields'         => [
-					'general' => [
-						'testfield_noid' => [
-							'type' => 'heading'
-						],
-						'testfield1'     => [
-							'id' => 'metabox_id1'
-						],
-						'testfield2'     => [
-							'id' => 'metabox_id2'
-						]
-					]
-				]
-			],
-			'samenwerkende-catalogi' => [
-				'id'             => 'metadata',
-				'settings_pages' => 'base_settings_page',
-				'fields'         => [
-					'general' => [
-						'testfield_noid' => [
-							'type' => 'heading'
-						],
-						'testfield1'     => [
-							'id' => 'metabox_id1'
-						],
-						'testfield2'     => [
-							'id' => 'metabox_id2'
-						]
-					]
-				]
-			]
-		];
+		$basePlugin->config->shouldReceive('set')->withArgs( ['settings.samenwerkende_catalogi', $settings['samenwerkende_catalogi']])->once();
 
-		$config->shouldReceive('get')->with('settings')->once()->andReturn($configMetaboxes);
+		$this->assertTrue( true );
 
-		$this->assertEquals($expectedMetaboxesAfterMerge, $service->registerSettings($existingMetaboxes));
+		$service->registerSettings($basePlugin);
 	}
 }
