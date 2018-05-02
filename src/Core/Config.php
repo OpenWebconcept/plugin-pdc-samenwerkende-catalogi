@@ -13,13 +13,6 @@ class Config
 	protected $path;
 
 	/**
-	 * Plugin name
-	 *
-	 * @var string
-	 */
-	protected $pluginName;
-
-	/**
 	 * Array with names of protected nodes in the config-items.
 	 *
 	 * @var array
