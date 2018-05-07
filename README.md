@@ -62,4 +62,4 @@ Create a Pull request to the OWC repository
 
 ### Who do I talk to? ###
 
-IF you have questions about or suggestions for this plugin, please contact <a href="mailto:hpeters@Buren.nl">Holger Peters</a> from Gemeente Buren.
+If you have questions about or suggestions for this plugin, please contact <a href="mailto:hpeters@Buren.nl">Holger Peters</a> from Gemeente Buren.

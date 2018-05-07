@@ -140,15 +140,19 @@ class Config
 		$this->path = $path;
 	}
 
+	/**
+	 * @param array $nodes
+	 */
 	public function setProtectedNodes($nodes = [])
 	{
 		$this->protectedNodes = $nodes;
 	}
 
+	/**
+	 * @param $path
+	 */
 	private function scanDirectory($path)
 	{
-		$this->items = [];
-
 		$files = glob($path . '/*', GLOB_NOSORT);
 
 		foreach ( $files as $file ) {
