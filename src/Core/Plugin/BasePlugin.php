@@ -85,11 +85,6 @@ abstract class BasePlugin
 	private function addStartUpHooks()
 	{
 		/**
-		 * This hook registers a plugin function to be run when the plugin is activated.
-		 */
-		register_activation_hook(__FILE__, [ 'OWC_SC\Core\Hooks', 'pluginActivation' ]);
-
-		/**
 		 * This hook is run immediately after any plugin is activated, and may be used to detect the activation of plugins.
 		 * If a plugin is silently activated (such as during an update), this hook does not fire.
 		 */
@@ -105,11 +100,6 @@ abstract class BasePlugin
 		 * This hook is run immediately after any plugin is deactivated, and may be used to detect the deactivation of other plugins.
 		 */
 		add_action('deactivated_plugin', [ 'OWC_SC\Core\Hooks', 'pluginDeactivated' ], 10, 2);
-
-		/**
-		 * This hook registers a plugin function to be run when the plugin is deactivated.
-		 */
-		register_deactivation_hook(__FILE__, [ 'OWC_SC\Core\Hooks', 'pluginDeactivation' ]);
 
 		/**
 		 * Registers the uninstall hook that will be called when the user clicks on the uninstall link that calls for the plugin to uninstall itself.

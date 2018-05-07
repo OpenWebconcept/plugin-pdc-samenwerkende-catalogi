@@ -10,7 +10,7 @@ class Hooks
      */
     public static function pluginActivation()
     {
-
+	    flush_rewrite_rules();
     }
 
     /**
