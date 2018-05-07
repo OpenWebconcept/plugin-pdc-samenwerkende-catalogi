@@ -33,6 +33,14 @@ class FeedServiceProviderTest extends TestCase
 		$service = new FeedServiceProvider($plugin);
 
 		$plugin->loader->shouldReceive('addAction')->withArgs([
+			'owc/config-expander/plugin',
+			$service,
+			'filterConfigExpanderPlugin',
+			10,
+			1
+		])->once();
+
+		$plugin->loader->shouldReceive('addAction')->withArgs([
 			'init',
 			$service,
 			'registerFeeds'
@@ -111,6 +119,18 @@ class FeedServiceProviderTest extends TestCase
 			'_owc_setting_town_council_label'   => 'Buren',
 			'_owc_setting_town_council_uri'     => 'http://standaarden.overheid.nl/owms/terms/Buren_(gemeente)'
 		];
+
+		$defaultSettings = [
+			'_owc_setting_portal_url'           => '',
+			'_owc_setting_portal_pdc_item_slug' => ''
+		];
+
+		\WP_Mock::userFunction('wp_parse_args', [
+				'args'   => [ $settings, $defaultSettings ],
+				'times'  => '1',
+				'return' => $settings
+			]
+		);
 
 		\WP_Mock::userFunction('get_option', [
 				'args'   => '_owc_pdc_base_settings',
