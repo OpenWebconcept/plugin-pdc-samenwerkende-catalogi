@@ -8,14 +8,20 @@ This README documents whatever steps are necessary to get this plugin up and run
 * Log into WordPress admin and activate the ‘PDC Samenwerkende Catalogi’ plugin through the ‘Plugins’ menu
 * Go to the 'PDC instellingen pagina' in the left-hand menu to enter some of the required settings
 
-### Filters
+### Filters & Actions
 
 There are various [hooks](https://codex.wordpress.org/Plugin_API/Hooks), which allows for changing the output.
 
-##### Filters the Settings config array.
+##### Action for changing main Plugin object.
 ```php
-owc/pdc-samenwerkende-catalogi/config/settings
+'owc/pdc-samenwerkende-catalogi/plugin'
 ```
+
+See OWC_SC\Core\Config->set method for a way to change this plugins config.
+
+Via the plugin object the following config settings can be adjusted
+- settings
+
 
 ### Translations ###
 
@@ -56,4 +62,4 @@ Create a Pull request to the OWC repository
 
 ### Who do I talk to? ###
 
-IF you have questions about or suggestions for this plugin, please contact <a src="mailto:hpeters@Buren.nl">Holger Peters</a> from Gemeente Buren.
+IF you have questions about or suggestions for this plugin, please contact <a href="mailto:hpeters@Buren.nl">Holger Peters</a> from Gemeente Buren.
