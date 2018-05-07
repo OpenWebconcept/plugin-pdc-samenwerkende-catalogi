@@ -20,8 +20,19 @@ class FeedServiceProvider extends ServiceProvider
 
 	public function register()
 	{
+		$this->plugin->loader->addAction('owc/config-expander/plugin', $this, 'filterConfigExpanderPlugin', 10, 1);
 		$this->plugin->loader->addAction('init', $this, 'registerFeeds');
 		$this->plugin->loader->addFilter('feed_content_type', $this, 'xmlFeedType', 10, 2);
+	}
+
+	/**
+	 * @param $settings
+	 *
+	 * @return mixed
+	 */
+	public function filterConfigExpanderPlugin($plugin)
+	{
+		$plugin->config->set( 'settings.disable-feed', false);
 	}
 
 	/**
@@ -56,7 +67,12 @@ class FeedServiceProvider extends ServiceProvider
 
 	public function createXmlFeed()
 	{
-		$this->settings = get_option(self::PREFIX . 'pdc_base_settings');
+
+		$defaultSettings = [
+			'_owc_setting_portal_url'           => '',
+			'_owc_setting_portal_pdc_item_slug' => ''
+		];
+		$this->settings  = wp_parse_args(get_option(self::PREFIX . 'pdc_base_settings'), $defaultSettings);
 
 		$town_council_label         = esc_attr($this->settings[self::PREFIX.'setting_town_council_label']);
 		$town_council_onderwerp_url = esc_url(trailingslashit($this->settings[self::PREFIX.'setting_portal_url']) . trailingslashit($this->settings[self::PREFIX.'setting_portal_pdc_item_slug']));
@@ -112,7 +128,8 @@ class FeedServiceProvider extends ServiceProvider
 
 			$excerpt =  $pdcItem['post_excerpt'];
 			if ( empty( $excerpt ) ) {
-				$excerpt =  wp_trim_words( $pdcItem['post_content'], 60 );
+				$content = apply_filters('the_content', $pdcItem['post_content']);
+				$excerpt = wp_trim_words($content, 60);
 			}
 			$scProductArgs = [
 				'id'                         => $pdcItem['ID'],
