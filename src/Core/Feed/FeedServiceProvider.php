@@ -70,7 +70,9 @@ class FeedServiceProvider extends ServiceProvider
 
 		$defaultSettings = [
 			'_owc_setting_portal_url'           => '',
-			'_owc_setting_portal_pdc_item_slug' => ''
+			'_owc_setting_portal_pdc_item_slug' => '',
+			'_owc_setting_town_council_label' => '',
+			'_owc_setting_town_council_uri' => '',
 		];
 		$this->settings  = wp_parse_args(get_option(self::PREFIX . 'pdc_base_settings'), $defaultSettings);
 
