@@ -122,7 +122,9 @@ class FeedServiceProviderTest extends TestCase
 
 		$defaultSettings = [
 			'_owc_setting_portal_url'           => '',
-			'_owc_setting_portal_pdc_item_slug' => ''
+			'_owc_setting_portal_pdc_item_slug' => '',
+			'_owc_setting_town_council_label'   => '',
+			'_owc_setting_town_council_uri'     => '',
 		];
 
 		\WP_Mock::userFunction('wp_parse_args', [
