@@ -3,14 +3,9 @@
   "description": "Samenwerkende Catalogi plugin, creates SC XML feed",
   "authors": [
     {
-      "name": "Ruud Laan",
-      "email": "ruud@yard.nl",
-      "homepage": "https://www.yarddigital.nl"
-    },
-    {
-      "name": "Edwin Siebel",
-      "email": "edwin@yard.nl",
-      "homepage": "https://www.yarddigital.nl"
+      "name": "Yard Internet",
+      "email": "info@yard.nl",
+      "homepage": "https://www.yardinternet.nl"
     }
   ],
   "type": "wordpress-plugin",
@@ -19,7 +14,7 @@
   },
   "require-dev": {
     "mockery/mockery": "1.0.*",
-    "phpunit/phpunit": "~6.0",
+    "phpunit/phpunit": "~7.0",
     "10up/wp_mock": "dev-master",
     "phpmd/phpmd" : "@stable"
   },
@@ -28,6 +23,15 @@
       "OWC_SC\\Core\\": "./src/Core",
       "OWC_SC\\Core\\Tests\\": "./tests"
     }
+  },
+  "scripts": {
+    "unit": "clear && ./vendor/bin/phpunit  --testsuite 'Unit Test Suite' --colors=always",
+    "unit-coverage": "clear && ./vendor/bin/phpunit  --testsuite 'Unit Test Suite' --colors=always --coverage-html ./tests/coverage",
+    "integration": "clear && ./vendor/bin/phpunit  --testsuite 'Integration Test Suite' --colors=always",
+    "test": [
+      "@unit",
+      "@integration"
+    ]
   }
 }
 

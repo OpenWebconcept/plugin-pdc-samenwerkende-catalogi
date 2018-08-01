@@ -4,8 +4,8 @@
  * Plugin URI:        https://www.openwebconcept.nl/
  * Description:       Plugin to create a XML feed according to the Samenwerkende Catalogi requirements.
  * Version:           1.1
- * Author:            Edwin Siebel, Ruud Laan
- * Author URI:        https://www.yarddigital.nl/
+ * Author:            Yard Internet
+ * Author URI:        https://www.yardinternet.nl/
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       pdc-samenwerkende-catalogi
