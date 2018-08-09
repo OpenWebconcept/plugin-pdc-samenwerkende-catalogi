@@ -1,10 +1,10 @@
 <?php
 
-namespace OWC_SC\Core\Tests\Unit;
+namespace OWC\PDC\SamenwerkendeCatalogi\Tests\Unit;
 
 use PHPUnit\Framework\TestCase as PHPUnit;
 
-class TestCase extends PHPUnit
+abstract class TestCase extends PHPUnit
 {
     //
 }

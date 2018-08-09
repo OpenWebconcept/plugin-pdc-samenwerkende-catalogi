@@ -12,14 +12,20 @@
  * Domain Path:       /languages
  */
 
-use OWC_SC\Core\Autoloader;
-use OWC_SC\Core\Plugin;
+use OWC\PDC\SamenwerkendeCatalogi\Autoloader;
+use OWC\PDC\SamenwerkendeCatalogi\Foundation\Hooks;
+use OWC\PDC\SamenwerkendeCatalogi\Foundation\Plugin;
 
 /**
  * If this file is called directly, abort.
  */
 if ( ! defined('WPINC')) {
-	die;
+    die;
+}
+
+// Don't boot if base plugin is not active.
+if ( ! is_plugin_active('pdc-base/pdc-base.php')) {
+    return;
 }
 
 /**
@@ -34,19 +40,7 @@ $autoloader = new Autoloader();
  * This hook is called once any activated plugins have been loaded. Is generally used for immediate filter setup, or
  * plugin overrides. The plugins_loaded action hook fires early, and precedes the setup_theme, after_setup_theme, init
  * and wp_loaded action hooks.
- *
  */
-add_action('plugins_loaded', function () {
-
-	$plugin = (new Plugin(__DIR__))->boot( );
+add_action('plugins_loaded', function() {
+    $plugin = (new Plugin(__DIR__))->boot();
 }, 9);
-
-/**
- * This hook registers a plugin function to be run when the plugin is activated.
- */
-register_activation_hook(__FILE__, [ 'OWC_SC\Core\Hooks', 'pluginActivation' ]);
-
-/**
- * This hook registers a plugin function to be run when the plugin is deactivated.
- */
-register_deactivation_hook(__FILE__, [ 'OWC_SC\Core\Hooks', 'pluginDeactivation' ]);

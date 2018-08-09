@@ -9,19 +9,26 @@
     }
   ],
   "type": "wordpress-plugin",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@bitbucket.org:openwebconcept/plugin-pdc-base.git"
+    }
+  ],
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "plugin/pdc-base": "dev-master"
   },
   "require-dev": {
     "mockery/mockery": "1.0.*",
     "phpunit/phpunit": "~7.0",
     "10up/wp_mock": "dev-master",
-    "phpmd/phpmd" : "@stable"
+    "phpdocumentor/phpdocumentor": "2.*"
   },
   "autoload-dev": {
     "psr-4": {
-      "OWC_SC\\Core\\": "./src/Core",
-      "OWC_SC\\Core\\Tests\\": "./tests"
+      "OWC\\PDC\\SamenwerkendeCatalogi\\": "./src/SamenwerkendeCatalogi",
+      "OWC\\PDC\\SamenwerkendeCatalogi\\Tests\\": "./tests"
     }
   },
   "scripts": {
@@ -31,7 +38,7 @@
     "test": [
       "@unit",
       "@integration"
-    ]
+    ],
+    "docs": "./vendor/bin/phpdoc -d ./src/SamenwerkendeCatalogi -t ./docs"
   }
 }
-
