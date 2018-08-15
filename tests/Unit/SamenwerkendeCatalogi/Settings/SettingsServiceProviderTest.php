@@ -6,6 +6,7 @@ use Mockery as m;
 use OWC\PDC\Base\Foundation\Config;
 use OWC\PDC\Base\Foundation\Loader;
 use OWC\PDC\Base\Foundation\Plugin;
+use OWC\PDC\SamenwerkendeCatalogi\Settings\SettingsServiceProvider;
 use OWC\PDC\SamenwerkendeCatalogi\Tests\Unit\TestCase;
 
 class SettingsServiceProviderTest extends TestCase

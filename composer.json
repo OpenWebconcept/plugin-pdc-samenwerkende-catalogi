@@ -1,7 +1,6 @@
 {
   "name": "plugin/pdc-samenwerkende-catalogi",
   "description": "Samenwerkende Catalogi plugin, creates SC XML feed",
-  "license": "MIT",
   "authors": [
     {
       "name": "Yard Internet",
@@ -18,19 +17,22 @@
   ],
   "require": {
     "php": ">=7.0",
-    "plugin/pdc-base": "^2.0"
+    "plugin/pdc-base": "^2.0.0"
   },
   "require-dev": {
     "mockery/mockery": "1.0.*",
     "phpunit/phpunit": "~7.0",
     "10up/wp_mock": "dev-master",
     "phpdocumentor/phpdocumentor": "2.*",
-    "squizlabs/php_codesniffer": "^3.0.2",
-    "roave/security-advisories": "dev-master"
+    "squizlabs/php_codesniffer": "^3.0.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "OWC\\PDC\\SamenwerkendeCatalogi\\": "./src/SamenwerkendeCatalogi"
+    }
   },
   "autoload-dev": {
     "psr-4": {
-      "OWC\\PDC\\SamenwerkendeCatalogi\\": "./src/SamenwerkendeCatalogi",
       "OWC\\PDC\\SamenwerkendeCatalogi\\Tests\\": "./tests"
     }
   },
