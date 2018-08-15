@@ -61,8 +61,6 @@ class FeedServiceProviderTest extends TestCase
         $this->assertTrue(true);
     }
 
-
-
     /** @test */
     public function check_xml_feed_type()
     {

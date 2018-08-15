@@ -1,5 +1,7 @@
 <?php
 
+namespace OWC\PDC\SamenwerkendeCatalogi\Tests;
+
 /**
  * PHPUnit bootstrap file
  */
@@ -20,13 +22,6 @@ define('WP_PLUGIN_DIR', __DIR__);
 $GLOBALS['samenwerkende-catalogi'] = [
     'active_plugins' => ['samenwerkende-catalogi/samenwerkende-catalogi.php'],
 ];
-
-class WP_CLI
-{
-    public static function add_command()
-    {
-    }
-}
 
 if (! function_exists('get_echo')) {
 
