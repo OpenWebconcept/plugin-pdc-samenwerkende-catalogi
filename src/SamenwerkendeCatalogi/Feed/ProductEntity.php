@@ -13,197 +13,196 @@ use OWC\PDC\SamenwerkendeCatalogi\Feed\FeedServiceProvider;
 class ProductEntity
 {
 
-	/**
-	 * Instance of the FeedServiceProvider object
-	 *
-	 * @var $feed FeedServiceProvider
-	 */
-	protected $feed;
+    /**
+     * Instance of the FeedServiceProvider object
+     *
+     * @var $feed FeedServiceProvider
+     */
+    protected $feed;
 
-	/**
-	 * Arguments to create the XML.
-	 *
-	 * @var array $args
-	 */
-	protected $args;
+    /**
+     * Arguments to create the XML.
+     *
+     * @var array $args
+     */
+    protected $args;
 
 
-	/**
-	 * Constructs the ProductEntity.
-	 *
-	 * @param FeedServiceProvider $feed
-	 * @param array $args
-	 */
-	public function __construct( FeedServiceProvider $feed, array $args = [] )
-	{
-		$this->feed = $feed;
-		$this->args = $args;
-	}
+    /**
+     * Constructs the ProductEntity.
+     *
+     * @param FeedServiceProvider $feed
+     * @param array $args
+     */
+    public function __construct(FeedServiceProvider $feed, array $args = [])
+    {
+        $this->feed = $feed;
+        $this->args = $args;
+    }
 
-	/**
-	 * Returns the Samenwerkende Catalogi product.
-	 *
-	 * @return string
-	 */
-	public function getXML() {
+    /**
+     * Returns the Samenwerkende Catalogi product.
+     *
+     * @return string
+     */
+    public function getXML()
+    {
 
-		$scProduct = $this->feed->xml->createElement("overheidproduct:scproduct");
-		$scProduct->setAttribute(
-			'owms-version',
-			'4.0'
-		);
-		$scProduct->appendChild( $this->getMeta() );
-		$scProduct->appendChild( $this->feed->xml->createElement("overheidproduct:body") );
+        $scProduct = $this->feed->xml->createElement("overheidproduct:scproduct");
+        $scProduct->setAttribute(
+            'owms-version',
+            '4.0'
+        );
+        $scProduct->appendChild($this->getMeta());
+        $scProduct->appendChild($this->feed->xml->createElement("overheidproduct:body"));
 
-		return $scProduct;
-	}
+        return $scProduct;
+    }
 
-	/**
-	 * Returns the Samenwerkende Catalogi meta product.
-	 *
-	 * @return string
-	 */
-	private function getMeta()
-	{
-		$meta = $this->feed->xml->createElement("overheidproduct:meta");
-		$meta->appendChild($this->getMetaKern());
-		$meta->appendChild($this->getMetaMantel());
-		$meta->appendChild($this->getMetaSc());
+    /**
+     * Returns the Samenwerkende Catalogi meta product.
+     *
+     * @return string
+     */
+    private function getMeta()
+    {
+        $meta = $this->feed->xml->createElement("overheidproduct:meta");
+        $meta->appendChild($this->getMetaKern());
+        $meta->appendChild($this->getMetaMantel());
+        $meta->appendChild($this->getMetaSc());
 
-		return $meta;
-	}
+        return $meta;
+    }
 
-	/**
-	 * Creates OWMS KERN node.
-	 *
-	 * @return string
-	 */
-	private function getMetaKern()
-	{
-		$owmskern = $this->feed->xml->createElement("overheidproduct:owmskern");
+    /**
+     * Creates OWMS KERN node.
+     *
+     * @return string
+     */
+    private function getMetaKern()
+    {
+        $owmskern = $this->feed->xml->createElement("overheidproduct:owmskern");
 
-		$dcterms_items = [
-			'identifier',
-			'title',
-			'language',
-			'type',
-			'modified',
-			'spatial'
-		];
+        $dcterms_items = [
+            'identifier',
+            'title',
+            'language',
+            'type',
+            'modified',
+            'spatial'
+        ];
 
-		foreach ( $dcterms_items as $dcterm_item ) {
+        foreach ($dcterms_items as $dcterm_item) {
+            $dcterm = $this->feed->xml->createElement("dcterms:$dcterm_item");
 
-			$dcterm = $this->feed->xml->createElement("dcterms:$dcterm_item");
+            switch ($dcterm_item) {
+                case 'language':
+                    $cdata_string = 'nl';
+                    break;
+                case 'identifier':
+                    $cdata_string = $this->args['town_council_onderwerp_url'] . $this->args['slug'];
+                    break;
+                case 'title':
+                    $cdata_string = $this->args['title'];
+                    break;
+                case 'modified':
+                    $cdata_string = $this->args['modified'];
+                    break;
+                case 'type':
+                    $dcterm->setAttribute(
+                        'scheme',
+                        'overheid:Informatietype'
+                    );
+                    $cdata_string = 'productbeschrijving';
+                    break;
+                case 'spatial':
+                    $cdata_string = $this->args['town_council_label'];
 
-			switch ( $dcterm_item ) {
-				case 'language':
-					$cdata_string = 'nl';
-					break;
-				case 'identifier':
-					$cdata_string = $this->args['town_council_onderwerp_url'] . $this->args['slug'];
-					break;
-				case 'title':
-					$cdata_string = $this->args['title'];
-					break;
-				case 'modified':
-					$cdata_string = $this->args['modified'];
-					break;
-				case 'type':
-					$dcterm->setAttribute(
-						'scheme',
-						'overheid:Informatietype'
-					);
-					$cdata_string = 'productbeschrijving';
-					break;
-				case 'spatial':
-					$cdata_string = $this->args['town_council_label'];
+                    $dcterm->setAttribute(
+                        'scheme',
+                        'overheid:Gemeente'
+                    );
+                    $dcterm->setAttribute(
+                        'resourceIdentifier',
+                        $this->args['town_council_uri']
+                    );
+                    break;
+            }
 
-					$dcterm->setAttribute(
-						'scheme',
-						'overheid:Gemeente'
-					);
-					$dcterm->setAttribute(
-						'resourceIdentifier',
-						$this->args['town_council_uri']
-					);
-					break;
-			}
+            $cdata = $this->feed->xml->createCDATASection($cdata_string);
+            $dcterm->appendChild($cdata);
 
-			$cdata = $this->feed->xml->createCDATASection($cdata_string);
-			$dcterm->appendChild($cdata);
+            $owmskern->appendChild($dcterm);
+        }
 
-			$owmskern->appendChild($dcterm);
-		}
+        $authority = $this->feed->xml->createElement("overheid:authority");
+        $authority->setAttribute(
+            'scheme',
+            'overheid:Gemeente'
+        );
+        $authority->setAttribute(
+            'resourceIdentifier',
+            $this->args['town_council_uri']
+        );
+        $cdata = $this->feed->xml->createCDATASection($this->args['town_council_label']);
+        $authority->appendChild($cdata);
 
-		$authority = $this->feed->xml->createElement("overheid:authority");
-		$authority->setAttribute(
-			'scheme',
-			'overheid:Gemeente'
-		);
-		$authority->setAttribute(
-			'resourceIdentifier',
-			$this->args['town_council_uri']
-		);
-		$cdata = $this->feed->xml->createCDATASection($this->args['town_council_label']);
-		$authority->appendChild($cdata);
+        $owmskern->appendChild($authority);
 
-		$owmskern->appendChild($authority);
+        return $owmskern;
+    }
 
-		return $owmskern;
-	}
+    /**
+     * Creates OWMS Mantel node.
+     *
+     * @return string
+     */
+    private function getMetaMantel()
+    {
+        $owmsmantel = $this->feed->xml->createElement("overheidproduct:owmsmantel");
 
-	/**
-	 * Creates OWMS Mantel node.
-	 *
-	 * @return string
-	 */
-	private function getMetaMantel()
-	{
-		$owmsmantel = $this->feed->xml->createElement("overheidproduct:owmsmantel");
+        foreach ($this->args['doelgroepen'] as $doelgroep) {
+            $dcterm = $this->feed->xml->createElement("dcterms:audience", $doelgroep);
+            $dcterm->setAttribute(
+                'scheme',
+                'overheid:Doelgroep'
+            );
+            $owmsmantel->appendChild($dcterm);
+        }
 
-		foreach ( $this->args['doelgroepen'] as $doelgroep ) {
+        $dcterm = $this->feed->xml->createElement("dcterms:abstract");
 
-			$dcterm = $this->feed->xml->createElement("dcterms:audience", $doelgroep);
-			$dcterm->setAttribute(
-				'scheme',
-				'overheid:Doelgroep'
-			);
-			$owmsmantel->appendChild($dcterm);
-		}
+        $abstract = wp_strip_all_tags($this->args['excerpt'], $remove_breaks = true);
 
-		$dcterm = $this->feed->xml->createElement("dcterms:abstract");
+        $cdata = $this->feed->xml->createCDATASection($abstract);
+        $dcterm->appendChild($cdata);
+        $owmsmantel->appendChild($dcterm);
 
-		$abstract = wp_strip_all_tags( $this->args['excerpt'], $remove_breaks = true);
+        return $owmsmantel;
+    }
 
-		$cdata = $this->feed->xml->createCDATASection($abstract);
-		$dcterm->appendChild($cdata);
-		$owmsmantel->appendChild($dcterm);
+    /**
+     * Creates SC META node
+     *
+     * @return string
+     */
+    private function getMetaSc()
+    {
+        $scMeta = $this->feed->xml->createElement("overheidproduct:scmeta");
 
-		return $owmsmantel;
-	}
+        $productId = $this->feed->xml->createElement("overheidproduct:productID");
+        $cdata     = $this->feed->xml->createCDATASection($this->args['id']);
+        $productId->appendChild($cdata);
+        $scMeta->appendChild($productId);
 
-	/**
-	 * Creates SC META node
-	 *
-	 * @return string
-	 */
-	private function getMetaSc()
-	{
-		$scMeta = $this->feed->xml->createElement("overheidproduct:scmeta");
+        $kenmerk = 'nee';
+        if (true === $this->args['digid']) {
+            $kenmerk = 'digid';
+        }
 
-		$productId = $this->feed->xml->createElement("overheidproduct:productID");
-		$cdata     = $this->feed->xml->createCDATASection($this->args['id']);
-		$productId->appendChild($cdata);
-		$scMeta->appendChild($productId);
+        $onlineAanvragen = $this->feed->xml->createElement("overheidproduct:onlineAanvragen", $kenmerk);
+        $scMeta->appendChild($onlineAanvragen);
 
-		$kenmerk = 'nee';
-		if ( true === $this->args['digid'] ) {
-			$kenmerk = 'digid';
-		}
-
-		$onlineAanvragen = $this->feed->xml->createElement("overheidproduct:onlineAanvragen", $kenmerk);
-		$scMeta->appendChild($onlineAanvragen);
-
-		return $scMeta;
-	}
+        return $scMeta;
+    }
 }
