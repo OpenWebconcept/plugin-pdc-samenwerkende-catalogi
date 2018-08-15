@@ -1,6 +1,6 @@
 <?php
 
-namespace OWC\PDC\SamenwerkendeCatalogi\Settings;
+namespace OWC\PDC\SamenwerkendeCatalogi\Tests\Settings;
 
 use Mockery as m;
 use OWC\PDC\Base\Foundation\Config;

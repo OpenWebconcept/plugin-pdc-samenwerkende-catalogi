@@ -1,6 +1,7 @@
 {
   "name": "plugin/pdc-samenwerkende-catalogi",
   "description": "Samenwerkende Catalogi plugin, creates SC XML feed",
+  "license": "MIT",
   "authors": [
     {
       "name": "Yard Internet",
@@ -17,7 +18,7 @@
   ],
   "require": {
     "php": ">=7.0",
-    "plugin/pdc-base": "^2.0.0"
+    "plugin/pdc-base": "^2.0"
   },
   "require-dev": {
     "mockery/mockery": "1.0.*",
