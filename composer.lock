@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a391cbc3589a68ccae09633ec89d2570",
+    "content-hash": "afeafd5ddc113d7c3c9ae7247141f93e",
     "packages": [
         {
             "name": "plugin/pdc-base",

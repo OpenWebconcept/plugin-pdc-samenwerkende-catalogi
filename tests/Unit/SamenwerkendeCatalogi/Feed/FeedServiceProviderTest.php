@@ -1,29 +1,30 @@
 <?php
 
-namespace OWC\PDC\SamenwerkendeCatalogi\Feed;
+namespace OWC\PDC\SamenwerkendeCatalogi\Tests\Feed;
 
 use Mockery as m;
 use OWC\PDC\Base\Foundation\Config;
 use OWC\PDC\Base\Foundation\Loader;
 use OWC\PDC\Base\Foundation\Plugin;
+use OWC\PDC\SamenwerkendeCatalogi\Feed\FeedServiceProvider;
 use OWC\PDC\SamenwerkendeCatalogi\Tests\Unit\TestCase;
 use WP_Mock;
 
 class FeedServiceProviderTest extends TestCase
 {
 
-	function setUp()
+	public function setUp()
 	{
 		WP_Mock::setUp();
 	}
 
-	function tearDown()
+	public function tearDown()
 	{
 		WP_Mock::tearDown();
 	}
 
 	/** @test */
-	function check_registration_feed()
+	public function check_registration_feed()
 	{
 		$config = m::mock(Config::class);
 		$plugin = m::mock(Plugin::class);
@@ -60,8 +61,10 @@ class FeedServiceProviderTest extends TestCase
 		$this->assertTrue(true);
 	}
 
+
+
 	/** @test */
-	function check_xml_feed_type()
+	public function check_xml_feed_type()
 	{
 		$config = m::mock(Config::class);
 		$plugin = m::mock(Plugin::class);
@@ -87,7 +90,7 @@ class FeedServiceProviderTest extends TestCase
 	 * @runInSeparateProcess
 	 * @preserveGlobalState disabled
 	 */
-	function check_xml_feed_construction()
+	public function check_xml_feed_construction()
 	{
 		$config = m::mock(Config::class);
 		$plugin = m::mock(Plugin::class);
