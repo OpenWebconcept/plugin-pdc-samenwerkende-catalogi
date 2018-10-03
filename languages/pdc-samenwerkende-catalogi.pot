@@ -2,51 +2,33 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PDC Samenwerkende Catalogi\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-25 08:07+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"POT-Creation-Date: 2018-10-03 11:44+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/"
-
-#. Author of the plugin
-msgid "Yard Internet"
-msgstr ""
-
-#. URI of the plugin
-msgid "https://www.openwebconcept.nl/"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://www.yardinternet.nl/"
-msgstr ""
-
-#: config/settings.php:14
-msgid "Label from this list http://standaarden.overheid.nl/owms/terms/Gemeente"
-msgstr ""
-
-#. Name of the plugin
-msgid "PDC Samenwerkende Catalogi"
-msgstr ""
-
-#. Description of the plugin
-msgid ""
-"Plugin to create a XML feed according to the Samenwerkende Catalogi "
-"requirements."
-msgstr ""
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Language-Team: Yard Internet <info@yard.nl>\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-KeywordsList: __;_x;_e;_ex;_n;_nx;esc_attr__;esc_attr_e;esc_attr_x;"
+"esc_html__;esc_html_e;esc_html_x;_n_noop;_nx_noop\n"
+"X-Poedit-Basepath: ..\n"
+"Last-Translator: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: tests\n"
+"X-Poedit-SearchPathExcluded-1: docs\n"
+"X-Poedit-SearchPathExcluded-2: vendor\n"
+"X-Poedit-SearchPathExcluded-3: languages\n"
 
 #: config/settings.php:7
-msgctxt "title on settings page"
 msgid "Samenwerkende Catalogi"
 msgstr ""
 
 #: config/settings.php:13
 msgid "Town council Label"
+msgstr ""
+
+#: config/settings.php:14
+msgid "Label from this list http://standaarden.overheid.nl/owms/terms/Gemeente"
 msgstr ""
 
 #: config/settings.php:19
