@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /**
      * Service Providers.
      */
@@ -9,35 +8,34 @@ return [
         /**
          * Global providers.
          */
-	    OWC\PDC\SamenwerkendeCatalogi\Feed\FeedServiceProvider::class,
-	    OWC\PDC\SamenwerkendeCatalogi\Settings\SettingsServiceProvider::class,
+        OWC\PDC\SamenwerkendeCatalogi\Feed\FeedServiceProvider::class,
+        OWC\PDC\SamenwerkendeCatalogi\Settings\SettingsServiceProvider::class,
 
-	    /**
+        /**
          * Providers specific to the admin.
          */
-        'admin'    => [
-        ]
-
+        'admin' => [],
     ],
-	/**
-	 * Dependencies upon which the plugin relies.
-	 *
-	 * Required: type, label
-	 * Optional: message
-	 *
-	 * Type: plugin
-	 * - Required: file
-	 * - Optional: version
-	 *
-	 * Type: class
-	 * - Required: name
-	 */
-	'dependencies' => [
-		[
-			'label' => 'OpenPDC Base',
-			'file' => 'pdc-base/pdc-base.php',
-			'version' => '2.0.0',
-			'type' => ''
-		]
-	]
+
+    /**
+     * Dependencies upon which the plugin relies.
+     *
+     * Required: type, label
+     * Optional: message
+     *
+     * Type: plugin
+     * - Required: file
+     * - Optional: version
+     *
+     * Type: class
+     * - Required: name
+     */
+    'dependencies' => [
+        [
+            'type' => 'plugin',
+            'label' => 'OpenPDC Base',
+            'version' => '2.1.5',
+            'file' => 'pdc-base/pdc-base.php',
+        ],
+    ],
 ];
