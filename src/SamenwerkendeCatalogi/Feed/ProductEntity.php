@@ -5,8 +5,6 @@
 
 namespace OWC\PDC\SamenwerkendeCatalogi\Feed;
 
-use OWC\PDC\SamenwerkendeCatalogi\Feed\FeedServiceProvider;
-
 /**
  * Constructs the ProductEntity model.
  */
@@ -16,17 +14,16 @@ class ProductEntity
     /**
      * Instance of the FeedServiceProvider object
      *
-     * @var $feed FeedServiceProvider
+     * @var FeedServiceProvider
      */
     protected $feed;
 
     /**
      * Arguments to create the XML.
      *
-     * @var array $args
+     * @var array
      */
     protected $args;
-
 
     /**
      * Constructs the ProductEntity.
@@ -47,7 +44,6 @@ class ProductEntity
      */
     public function getXML()
     {
-
         $scProduct = $this->feed->xml->createElement("overheidproduct:scproduct");
         $scProduct->setAttribute(
             'owms-version',
@@ -89,7 +85,7 @@ class ProductEntity
             'language',
             'type',
             'modified',
-            'spatial'
+            'spatial',
         ];
 
         foreach ($dcterms_items as $dcterm_item) {
@@ -98,15 +94,19 @@ class ProductEntity
             switch ($dcterm_item) {
                 case 'language':
                     $cdata_string = 'nl';
+
                     break;
                 case 'identifier':
                     $cdata_string = $this->args['town_council_onderwerp_url'] . $this->args['slug'];
+
                     break;
                 case 'title':
                     $cdata_string = $this->args['title'];
+
                     break;
                 case 'modified':
                     $cdata_string = $this->args['modified'];
+
                     break;
                 case 'type':
                     $dcterm->setAttribute(
@@ -114,6 +114,7 @@ class ProductEntity
                         'overheid:Informatietype'
                     );
                     $cdata_string = 'productbeschrijving';
+
                     break;
                 case 'spatial':
                     $cdata_string = $this->args['town_council_label'];
@@ -126,6 +127,7 @@ class ProductEntity
                         'resourceIdentifier',
                         $this->args['town_council_uri']
                     );
+
                     break;
             }
 

@@ -12,7 +12,6 @@ use OWC\PDC\Base\Foundation\ServiceProvider;
  */
 class SettingsServiceProvider extends ServiceProvider
 {
-
     /**
      * Registers the hooks.
      */

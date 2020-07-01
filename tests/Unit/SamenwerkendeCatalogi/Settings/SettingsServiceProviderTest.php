@@ -37,7 +37,7 @@ class SettingsServiceProviderTest extends TestCase
             $service,
             'registerSettings',
             10,
-            1
+            1,
         ])->once();
 
         $service->register();
@@ -49,17 +49,17 @@ class SettingsServiceProviderTest extends TestCase
                 'fields'         => [
                     'general' => [
                         'testfield_noid' => [
-                            'type' => 'heading'
+                            'type' => 'heading',
                         ],
                         'testfield1'     => [
-                            'id' => 'metabox_id1'
+                            'id' => 'metabox_id1',
                         ],
                         'testfield2'     => [
-                            'id' => 'metabox_id2'
-                        ]
-                    ]
-                ]
-            ]
+                            'id' => 'metabox_id2',
+                        ],
+                    ],
+                ],
+            ],
         ];
 
         $config->shouldReceive('get')->with('settings')->once()->andReturn($settings);
