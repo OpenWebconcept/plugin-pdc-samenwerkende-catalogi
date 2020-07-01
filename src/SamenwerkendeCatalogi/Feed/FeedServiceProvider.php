@@ -91,12 +91,11 @@ class FeedServiceProvider extends ServiceProvider
      */
     public function createXmlFeed()
     {
-
         $defaultSettings = [
             '_owc_setting_portal_url'           => '',
             '_owc_setting_portal_pdc_item_slug' => '',
-            '_owc_setting_town_council_label' => '',
-            '_owc_setting_town_council_uri' => '',
+            '_owc_setting_town_council_label'   => '',
+            '_owc_setting_town_council_uri'     => '',
         ];
         $this->settings  = wp_parse_args(get_option(self::PREFIX . 'pdc_base_settings'), $defaultSettings);
 
@@ -127,7 +126,7 @@ class FeedServiceProvider extends ServiceProvider
             'meta_query'             => $meta_pdc_active_query
         ];
 
-        $query = new \WP_Query();
+        $query    = new \WP_Query();
         $pdcItems = $query->query($args);
 
         foreach ($pdcItems as $pdcItem) {
@@ -145,6 +144,11 @@ class FeedServiceProvider extends ServiceProvider
                         case 'ondernemers':
                             $doelgroepen[] = 'ondernemer';
                             break;
+                        case 'maatschappelijkeorganisaties':
+                            $doelgroepen[] = 'ondernemer';
+                            break;
+                        default:
+                            $doelgroepen[] = 'particulier';
                     }
                 }
             }
