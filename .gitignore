@@ -43,6 +43,9 @@
 # track .editorconfig file (i.e. do NOT ignore it)
 !.editorconfig
 
+# track php.cs file
+!.php_cs
+
 # track readme.md in the root (i.e. do NOT ignore it)
 !readme.md
 

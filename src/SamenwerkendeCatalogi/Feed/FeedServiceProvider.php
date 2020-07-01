@@ -10,18 +10,17 @@ use OWC\PDC\Base\Foundation\ServiceProvider;
 /**
  * Provider which adds feeds to the WordPress feed.
  */
-
 class FeedServiceProvider extends ServiceProvider
 {
     const PREFIX = '_owc_';
 
     /**
-     * @var $xml DomDocument
+     * @var DomDocument
      */
     public $xml;
 
     /**
-     * @var $settings array
+     * @var array
      */
     private $settings;
 
@@ -119,11 +118,11 @@ class FeedServiceProvider extends ServiceProvider
         $args = [
             'post_type'              => 'pdc-item',
             'post_status'            => 'publish',
-            'posts_per_page'         => - 1,
+            'posts_per_page'         => -1,
             'no_found_rows'          => true, //useful when pagination is not needed.
             'update_post_meta_cache' => false, //useful when post meta will not be utilized.
             'update_post_term_cache' => true, //useful when taxonomy terms will not be utilized.
-            'meta_query'             => $meta_pdc_active_query
+            'meta_query'             => $meta_pdc_active_query,
         ];
 
         $query    = new \WP_Query();
@@ -140,12 +139,15 @@ class FeedServiceProvider extends ServiceProvider
                     switch ($doelgroepTerm->slug) {
                         case 'bewoners':
                             $doelgroepen[] = 'particulier';
+
                             break;
                         case 'ondernemers':
                             $doelgroepen[] = 'ondernemer';
+
                             break;
                         case 'maatschappelijkeorganisaties':
                             $doelgroepen[] = 'ondernemer';
+
                             break;
                         default:
                             $doelgroepen[] = 'particulier';
@@ -168,7 +170,7 @@ class FeedServiceProvider extends ServiceProvider
                 'doelgroepen'                => $doelgroepen,
                 'town_council_label'         => $town_council_label,
                 'town_council_onderwerp_url' => $town_council_onderwerp_url,
-                'town_council_uri'           => $town_council_uri
+                'town_council_uri'           => $town_council_uri,
             ];
 
             $scProduct = new ProductEntity($this, $scProductArgs);
