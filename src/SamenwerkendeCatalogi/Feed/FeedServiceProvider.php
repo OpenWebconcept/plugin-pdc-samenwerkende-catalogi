@@ -167,7 +167,7 @@ class FeedServiceProvider extends ServiceProvider
                 'excerpt'                    => $excerpt,
                 'modified'                   => date('Y-m-d', strtotime($pdcItem['post_modified_gmt'])),
                 'digid'                      => has_term('digid', 'pdc-aspect', $pdcItem['ID']),
-                'doelgroepen'                => $doelgroepen,
+                'doelgroepen'                => $doelgroepen = array_unique($doelgroepen),
                 'town_council_label'         => $town_council_label,
                 'town_council_onderwerp_url' => $town_council_onderwerp_url,
                 'town_council_uri'           => $town_council_uri,
