@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Constructs the ProductEntity model.
  */
@@ -40,9 +41,9 @@ class ProductEntity
     /**
      * Returns the Samenwerkende Catalogi product.
      *
-     * @return string
+     * @return object
      */
-    public function getXML()
+    public function getXML(): object
     {
         $scProduct = $this->feed->xml->createElement("overheidproduct:scproduct");
         $scProduct->setAttribute(
@@ -97,7 +98,7 @@ class ProductEntity
 
                     break;
                 case 'identifier':
-                    $cdata_string = $this->args['town_council_onderwerp_url'] . $this->args['slug'];
+                    $cdata_string = $this->args['town_council_onderwerp_url'];
 
                     break;
                 case 'title':

@@ -2,12 +2,12 @@
 
 return [
     /**
-     * Service Providers.
-     */
+             * Service Providers.
+         */
     'providers' => [
         /**
-         * Global providers.
-         */
+     * Global providers.
+     */
         OWC\PDC\SamenwerkendeCatalogi\Feed\FeedServiceProvider::class,
         OWC\PDC\SamenwerkendeCatalogi\Settings\SettingsServiceProvider::class,
 
@@ -34,7 +34,7 @@ return [
         [
             'type'    => 'plugin',
             'label'   => 'OpenPDC Base',
-            'version' => '2.1.5',
+            'version' => '2.2.13',
             'file'    => 'pdc-base/pdc-base.php',
         ],
     ],

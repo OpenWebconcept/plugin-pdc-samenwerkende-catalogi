@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provider which adds the metabox settings.
  */

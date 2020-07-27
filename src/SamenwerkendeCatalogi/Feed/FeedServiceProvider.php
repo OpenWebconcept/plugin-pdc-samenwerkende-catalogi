@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provider which adds feeds to the WordPress feed.
  */
@@ -6,6 +7,7 @@
 namespace OWC\PDC\SamenwerkendeCatalogi\Feed;
 
 use OWC\PDC\Base\Foundation\ServiceProvider;
+use OWC\PDC\SamenwerkendeCatalogi\Repositories\ScRepository;
 
 /**
  * Provider which adds feeds to the WordPress feed.
@@ -96,17 +98,49 @@ class FeedServiceProvider extends ServiceProvider
             '_owc_setting_town_council_label'   => '',
             '_owc_setting_town_council_uri'     => '',
         ];
+
         $this->settings  = wp_parse_args(get_option(self::PREFIX . 'pdc_base_settings'), $defaultSettings);
 
-        $town_council_label         = esc_attr($this->settings[self::PREFIX.'setting_town_council_label']);
-        $town_council_onderwerp_url = esc_url(trailingslashit($this->settings[self::PREFIX.'setting_portal_url']) . trailingslashit($this->settings[self::PREFIX.'setting_portal_pdc_item_slug']));
-        $town_council_uri           = esc_url($this->settings[self::PREFIX.'setting_town_council_uri']);
+        $townCouncilLabel   = esc_attr($this->settings[self::PREFIX . 'setting_town_council_label']);
+        $townCouncilUri     = esc_url($this->settings[self::PREFIX . 'setting_town_council_uri']);
 
         // "Create" the document.
         $this->xml = new \DOMDocument("1.0", "utf-8");
 
-        $xmlProducten = $this->getRootNode();
+        $xmlProducten   = $this->getRootNode();
+        $queryArgs      = $this->getQueryArgs();
 
+        foreach ((new ScRepository())->query($queryArgs)->all() as $scItem) {
+            $doelgroepen            = $scItem->getDoelgroepen();
+            $portalUrl              = $scItem->getPortalURL();
+
+            $scProductArgs = [
+                'id'                         => $scItem->getID(),
+                'slug'                       => $scItem->getPostName(),
+                'title'                      => $scItem->getTitle(),
+                'excerpt'                    => $scItem->getExcerpt(60),
+                'modified'                   => $scItem->getPostModified(true)->format('Y-m-d'),
+                'digid'                      => has_term('digid', 'pdc-aspect', $scItem->getID()),
+                'doelgroepen'                => $doelgroepen,
+                'town_council_label'         => $townCouncilLabel,
+                'town_council_onderwerp_url' => $portalUrl,
+                'town_council_uri'           => $townCouncilUri,
+            ];
+
+            $scProduct = new ProductEntity($this, $scProductArgs);
+            $xmlProducten->appendChild($scProduct->getXML());
+        }
+
+        $this->xml->appendChild($xmlProducten);
+
+        return $this->xml->saveXML();
+    }
+
+    /**
+     * @return array
+     */
+    private function getQueryArgs(): array
+    {
         $meta_pdc_active_query = [
             [
                 'key'     => '_owc_pdc_active',
@@ -115,7 +149,7 @@ class FeedServiceProvider extends ServiceProvider
             ],
         ];
 
-        $args = [
+        return [
             'post_type'              => 'pdc-item',
             'post_status'            => 'publish',
             'posts_per_page'         => -1,
@@ -124,71 +158,14 @@ class FeedServiceProvider extends ServiceProvider
             'update_post_term_cache' => true, //useful when taxonomy terms will not be utilized.
             'meta_query'             => $meta_pdc_active_query,
         ];
-
-        $query    = new \WP_Query();
-        $pdcItems = $query->query($args);
-
-        foreach ($pdcItems as $pdcItem) {
-            $pdcItem = (array)$pdcItem;
-
-            $doelgroepTerms = get_the_terms($pdcItem['ID'], 'pdc-doelgroep');
-            $doelgroepen    = ['particulier'];
-            if (! is_wp_error($doelgroepTerms) && ! empty($doelgroepTerms)) {
-                $doelgroepen = [];
-                foreach ($doelgroepTerms as $doelgroepTerm) {
-                    switch ($doelgroepTerm->slug) {
-                        case 'bewoners':
-                            $doelgroepen[] = 'particulier';
-
-                            break;
-                        case 'ondernemers':
-                            $doelgroepen[] = 'ondernemer';
-
-                            break;
-                        case 'maatschappelijkeorganisaties':
-                            $doelgroepen[] = 'ondernemer';
-
-                            break;
-                        default:
-                            $doelgroepen[] = 'particulier';
-                    }
-                }
-            }
-
-            $excerpt =  $pdcItem['post_excerpt'];
-            if (empty($excerpt)) {
-                $content = apply_filters('the_content', $pdcItem['post_content']);
-                $excerpt = wp_trim_words($content, 60);
-            }
-            $scProductArgs = [
-                'id'                         => $pdcItem['ID'],
-                'slug'                       => $pdcItem['post_name'],
-                'title'                      => $pdcItem['post_title'],
-                'excerpt'                    => $excerpt,
-                'modified'                   => date('Y-m-d', strtotime($pdcItem['post_modified_gmt'])),
-                'digid'                      => has_term('digid', 'pdc-aspect', $pdcItem['ID']),
-                'doelgroepen'                => $doelgroepen = array_unique($doelgroepen),
-                'town_council_label'         => $town_council_label,
-                'town_council_onderwerp_url' => $town_council_onderwerp_url,
-                'town_council_uri'           => $town_council_uri,
-            ];
-
-            $scProduct = new ProductEntity($this, $scProductArgs);
-            $xmlProducten->appendChild($scProduct->getXML());
-        }
-        wp_reset_postdata();
-
-        $this->xml->appendChild($xmlProducten);
-
-        return $this->xml->saveXML();
     }
 
     /**
      * Returns the root node of the xml.
      *
-     * @return string
+     * @return object
      */
-    private function getRootNode()
+    private function getRootNode(): object
     {
         $xmlProducten = $this->xml->createElementNS('http://standaarden.overheid.nl/product/terms/', 'overheidproduct:scproducten');
 
