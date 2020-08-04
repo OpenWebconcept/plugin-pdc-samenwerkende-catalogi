@@ -34,7 +34,7 @@ return [
         [
             'type'    => 'plugin',
             'label'   => 'OpenPDC Base',
-            'version' => 'v2.2.13',
+            'version' => '2.2.13',
             'file'    => 'pdc-base/pdc-base.php',
         ],
     ],
