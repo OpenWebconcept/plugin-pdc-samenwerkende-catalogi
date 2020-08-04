@@ -1,8 +1,19 @@
 # CHANGELOG
 
-## Version 1.2.3
+## Version 2.0.0
 
--   (feat): clean-up & improvement feed serviceprovider
+### Features:
+
+-   Refactor: clean-up for version 1.0.
+-   Feat: clean-up & improvement feed serviceprovider
+
+### Added
+
+-   ScItem model used in feed serviceprovider
+
+### Changed
+
+-   Architecture change in the pdc-base plug-in, used as dependency, affects namespaces used
 
 ## Version 1.2.2
 
