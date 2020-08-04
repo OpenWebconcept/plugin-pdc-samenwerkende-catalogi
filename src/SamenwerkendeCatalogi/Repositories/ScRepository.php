@@ -2,14 +2,14 @@
 
 namespace OWC\PDC\SamenwerkendeCatalogi\Repositories;
 
-use OWC\PDC\Base\Repositories\Model;
+use OWC\PDC\Base\Repositories\AbstractRepository;
 use OWC\PDC\SamenwerkendeCatalogi\Models\ScItem;
 use WP_Post;
 
 /**
  * Model for the item
  */
-class ScRepository extends Model
+class ScRepository extends AbstractRepository
 {
     const PREFIX = '_owc_';
 
