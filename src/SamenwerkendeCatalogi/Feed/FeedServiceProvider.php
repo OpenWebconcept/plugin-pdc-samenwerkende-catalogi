@@ -144,7 +144,7 @@ class FeedServiceProvider extends ServiceProvider
         $meta_pdc_active_query = [
             [
                 'key'     => '_owc_pdc_active',
-                'value'   => 1,
+                'value'   => '1',
                 'compare' => '=',
             ],
         ];
