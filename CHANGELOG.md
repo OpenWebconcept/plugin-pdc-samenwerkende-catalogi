@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.0.1
+
+### Fixed:
+
+-   Meta query used in creating xml feed
+
 ## Version 2.0.0
 
 ### Features:
