@@ -1,25 +1,31 @@
 # CHANGELOG
 
+## Version 2.0.2
+
+### Fixed:
+
+-   (fix): 'pdc-doelgroepen' terms in xml sc feed
+
 ## Version 2.0.1
 
 ### Fixed:
 
--   Meta query used in creating xml feed
+-   (fix): meta query used in creating xml feed
 
 ## Version 2.0.0
 
 ### Features:
 
--   Refactor: clean-up for version 1.0.
--   Feat: clean-up & improvement feed serviceprovider
+-   (refactor): clean-up for version 1.0.
+-   (feat): clean-up & improvement feed serviceprovider
 
 ### Added
 
--   ScItem model used in feed serviceprovider
+-   (feat): ScItem model used in feed serviceprovider
 
 ### Changed
 
--   Architecture change in the pdc-base plug-in, used as dependency, affects namespaces used
+-   (refactor): architecture change in the pdc-base plug-in, used as dependency, affects namespaces used
 
 ## Version 1.2.2
 

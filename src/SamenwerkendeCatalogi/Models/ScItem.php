@@ -12,7 +12,7 @@ class ScItem extends Item
     public function getDoelgroepen(): array
     {
         $doelgroepTerms = $this->getTerms('pdc-doelgroep');
-        $doelgroepen    = ['particulier'];
+        $doelgroepen    = [];
 
         if (!is_wp_error($doelgroepTerms) && !empty($doelgroepTerms)) {
             foreach ($doelgroepTerms as $doelgroepTerm) {
@@ -20,7 +20,14 @@ class ScItem extends Item
             }
         }
 
-        return $this->arrayUnique($doelgroepen);
+        $doelgroepen = $this->arrayUnique($doelgroepen);
+
+        // $doelgroepen is not allowed to be empty or else the feed will be invalid.
+        if (empty($doelgroepen)) {
+            return ['particulier'];
+        }
+
+        return $doelgroepen;
     }
 
     /**
