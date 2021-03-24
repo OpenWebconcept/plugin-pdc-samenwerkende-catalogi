@@ -57,4 +57,36 @@ class ScItem extends Item
 
         return $doelgroepen;
     }
+
+    /**
+     * @return string
+     */
+    public function getUplName(): string
+    {
+        $uplName = get_post_meta($this->getID(), '_owc_pdc_upl_naam', true);
+
+        if (empty($uplName)) {
+            $uplName = $this->getTitle();
+        }
+
+        return $uplName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUplResource(): string
+    {
+        $uplResource = get_post_meta($this->getID(), '_owc_pdc_upl_resource', true);
+
+        if (empty($uplResource)) {
+            $uplNameFormat  = str_replace(' ', '-', $this->getUplName());
+            $uplResource    = 'http://standaarden.overheid.nl/owms/terms/' . $uplNameFormat;
+        }
+
+        $uplResource = str_replace([' ', ','], ['-', ''], $uplResource);
+        $uplResource = strtolower($uplResource);
+
+        return $uplResource;
+    }
 }

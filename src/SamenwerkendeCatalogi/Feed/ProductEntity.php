@@ -59,14 +59,15 @@ class ProductEntity
     /**
      * Returns the Samenwerkende Catalogi meta product.
      *
-     * @return string
+     * @return object
      */
-    private function getMeta()
+    private function getMeta(): object
     {
         $meta = $this->feed->xml->createElement("overheidproduct:meta");
         $meta->appendChild($this->getMetaKern());
         $meta->appendChild($this->getMetaMantel());
         $meta->appendChild($this->getMetaSc());
+        $meta->appendChild($this->getMetaUpl());
 
         return $meta;
     }
@@ -74,9 +75,9 @@ class ProductEntity
     /**
      * Creates OWMS KERN node.
      *
-     * @return string
+     * @return object
      */
-    private function getMetaKern()
+    private function getMetaKern(): object
     {
         $owmskern = $this->feed->xml->createElement("overheidproduct:owmskern");
 
@@ -156,11 +157,31 @@ class ProductEntity
     }
 
     /**
+     * Creates UPL node.
+     *
+     * @return object
+     */
+    private function getMetaUpl(): object
+    {
+        $upl = $this->feed->xml->createElement("overheidproduct:uniformeProductnaam", $this->args['upl_name']);
+        $upl->setAttribute(
+            'scheme',
+            'overheid:UniformeProductnaam'
+        );
+        $upl->setAttribute(
+            'resourceIdentifier',
+            $this->args['upl_resource']
+        );
+
+        return $upl;
+    }
+
+    /**
      * Creates OWMS Mantel node.
      *
-     * @return string
+     * @return object
      */
-    private function getMetaMantel()
+    private function getMetaMantel(): object
     {
         $owmsmantel = $this->feed->xml->createElement("overheidproduct:owmsmantel");
 
@@ -187,9 +208,9 @@ class ProductEntity
     /**
      * Creates SC META node
      *
-     * @return string
+     * @return object
      */
-    private function getMetaSc()
+    private function getMetaSc(): object
     {
         $scMeta = $this->feed->xml->createElement("overheidproduct:scmeta");
 

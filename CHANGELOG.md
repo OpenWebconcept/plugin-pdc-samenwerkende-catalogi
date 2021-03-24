@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.0.3
+
+### Features
+
+-   (feat): add UPL values in xml sc feed. UPL stands for 'Uniform Product List' and is used for naming the products and services of the Dutch government (https://standaarden.overheid.nl/upl)
+
 ## Version 2.0.2
 
 ### Fixed:

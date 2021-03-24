@@ -125,6 +125,8 @@ class FeedServiceProvider extends ServiceProvider
                 'town_council_label'         => $townCouncilLabel,
                 'town_council_onderwerp_url' => $portalUrl,
                 'town_council_uri'           => $townCouncilUri,
+                'upl_name'                   => $scItem->getUplName(),
+                'upl_resource'               => $scItem->getUplResource(),
             ];
 
             $scProduct = new ProductEntity($this, $scProductArgs);

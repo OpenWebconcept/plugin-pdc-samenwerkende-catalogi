@@ -4,9 +4,9 @@
  * Plugin Name:       PDC Samenwerkende Catalogi
  * Plugin URI:        https://www.openwebconcept.nl/
  * Description:       Plugin to create a XML feed according to the Samenwerkende Catalogi requirements.
- * Version:           2.0.2
- * Author:            Yard Internet
- * Author URI:        https://www.yardinternet.nl/
+ * Version:           2.0.3
+ * Author:            Yard | Digital Agency
+ * Author URI:        https://www.yard.nl/
  * License:           GPL-3.0
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       pdc-samenwerkende-catalogi
