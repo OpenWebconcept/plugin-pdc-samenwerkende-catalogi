@@ -67,7 +67,6 @@ class ProductEntity
         $meta->appendChild($this->getMetaKern());
         $meta->appendChild($this->getMetaMantel());
         $meta->appendChild($this->getMetaSc());
-        $meta->appendChild($this->getMetaUpl());
 
         return $meta;
     }
@@ -157,26 +156,6 @@ class ProductEntity
     }
 
     /**
-     * Creates UPL node.
-     *
-     * @return object
-     */
-    private function getMetaUpl(): object
-    {
-        $upl = $this->feed->xml->createElement("overheidproduct:uniformeProductnaam", $this->args['upl_name']);
-        $upl->setAttribute(
-            'scheme',
-            'overheid:UniformeProductnaam'
-        );
-        $upl->setAttribute(
-            'resourceIdentifier',
-            $this->args['upl_resource']
-        );
-
-        return $upl;
-    }
-
-    /**
      * Creates OWMS Mantel node.
      *
      * @return object
@@ -226,6 +205,18 @@ class ProductEntity
 
         $onlineAanvragen = $this->feed->xml->createElement("overheidproduct:onlineAanvragen", $kenmerk);
         $scMeta->appendChild($onlineAanvragen);
+
+        $upl = $this->feed->xml->createElement("overheidproduct:uniformeProductnaam", $this->args['upl_name']);
+        $upl->setAttribute(
+            'scheme',
+            'overheid:UniformeProductnaam'
+        );
+        $upl->setAttribute(
+            'resourceIdentifier',
+            $this->args['upl_resource']
+        );
+
+        $scMeta->appendChild($upl);
 
         return $scMeta;
     }

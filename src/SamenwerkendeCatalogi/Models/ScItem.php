@@ -69,7 +69,7 @@ class ScItem extends Item
             $uplName = $this->getTitle();
         }
 
-        return $uplName;
+        return $this->stripUpl($uplName);
     }
 
     /**
@@ -77,16 +77,21 @@ class ScItem extends Item
      */
     public function getUplResource(): string
     {
-        $uplResource = get_post_meta($this->getID(), '_owc_pdc_upl_resource', true);
+        return 'http://standaarden.overheid.nl/owms/terms/' . $this->getUplName();
+    }
 
-        if (empty($uplResource)) {
-            $uplNameFormat  = str_replace(' ', '-', $this->getUplName());
-            $uplResource    = 'http://standaarden.overheid.nl/owms/terms/' . $uplNameFormat;
-        }
+    /**
+     * Strip upl to required format.
+     *
+     * @param string $string
+     * @return string
+     */
+    protected function stripUpl(string $string): string
+    {
+        // replace all spaces with dashes.
+        $string = str_replace(' ', '-', strtolower($string));
 
-        $uplResource = str_replace([' ', ','], ['-', ''], $uplResource);
-        $uplResource = strtolower($uplResource);
-
-        return $uplResource;
+        // replace all the characters except lowercase letters and dashes.
+        return preg_replace("/[^a-z|-]/", "", $string);
     }
 }

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.0.4
+
+### Features
+
+-   (refactor): strip unnecessary characters in UPL values and display them in lowercase. Used in xml sc feed.
+
 ## Version 2.0.3
 
 ### Features
