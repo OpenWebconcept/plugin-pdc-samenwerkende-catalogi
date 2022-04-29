@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Provider which adds the metabox settings.
- */
-
 namespace OWC\PDC\SamenwerkendeCatalogi\Settings;
 
 use OWC\PDC\Base\Foundation\ServiceProvider;

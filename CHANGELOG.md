@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.0.5
+
+### Features
+
+-   (feat): remove internal pdc-items from sc feed.
+
 ## Version 2.0.4
 
 ### Features

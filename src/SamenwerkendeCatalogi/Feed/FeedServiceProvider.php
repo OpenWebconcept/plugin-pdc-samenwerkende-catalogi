@@ -1,13 +1,11 @@
 <?php
 
-/**
- * Provider which adds feeds to the WordPress feed.
- */
-
 namespace OWC\PDC\SamenwerkendeCatalogi\Feed;
 
 use OWC\PDC\Base\Foundation\ServiceProvider;
 use OWC\PDC\SamenwerkendeCatalogi\Repositories\ScRepository;
+use OWC\PDC\SamenwerkendeCatalogi\Settings\SettingsPageOptions;
+use OWC\PDC\SamenwerkendeCatalogi\Foundation\Plugin;
 
 /**
  * Provider which adds feeds to the WordPress feed.
@@ -22,9 +20,22 @@ class FeedServiceProvider extends ServiceProvider
     public $xml;
 
     /**
-     * @var array
+     * @var SettingsPageOptions
      */
-    private $settings;
+    protected $settings;
+
+    /**
+     * Construction of the service provider.
+     *
+     * @param Plugin $plugin
+     *
+     * @return void
+     */
+    public function __construct(Plugin $plugin)
+    {
+        $this->plugin = $plugin;
+        $this->settings = SettingsPageOptions::make();
+    }
 
     /**
      * Registers the hooks.
@@ -99,10 +110,8 @@ class FeedServiceProvider extends ServiceProvider
             '_owc_setting_town_council_uri'     => '',
         ];
 
-        $this->settings  = wp_parse_args(get_option(self::PREFIX . 'pdc_base_settings'), $defaultSettings);
-
-        $townCouncilLabel   = esc_attr($this->settings[self::PREFIX . 'setting_town_council_label']);
-        $townCouncilUri     = esc_url($this->settings[self::PREFIX . 'setting_town_council_uri']);
+        $townCouncilLabel = $this->settings->getTownCouncilLabel();
+        $townCouncilUri = $this->settings->getTownCouncilURI();
 
         // "Create" the document.
         $this->xml = new \DOMDocument("1.0", "utf-8");
@@ -151,6 +160,19 @@ class FeedServiceProvider extends ServiceProvider
             ],
         ];
 
+        $tax_pdc_type_query = [
+            'relation' => 'OR',
+            [
+                'taxonomy' => 'pdc-type',
+                'field' => 'slug',
+                'terms' => 'external'
+            ],
+            [
+                'taxonomy' => 'pdc-type',
+                'operator' => 'NOT EXISTS'
+            ]
+        ];
+
         return [
             'post_type'              => 'pdc-item',
             'post_status'            => 'publish',
@@ -159,6 +181,7 @@ class FeedServiceProvider extends ServiceProvider
             'update_post_meta_cache' => false, //useful when post meta will not be utilized.
             'update_post_term_cache' => true, //useful when taxonomy terms will not be utilized.
             'meta_query'             => $meta_pdc_active_query,
+            'tax_query'              => $tax_pdc_type_query
         ];
     }
 
