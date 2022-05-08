@@ -6,6 +6,8 @@
 
 namespace OWC\PDC\SamenwerkendeCatalogi\Feed;
 
+use OWC\PDC\SamenwerkendeCatalogi\Settings\SettingsPageOptions;
+
 /**
  * Constructs the ProductEntity model.
  */
@@ -32,10 +34,11 @@ class ProductEntity
      * @param FeedServiceProvider $feed
      * @param array $args
      */
-    public function __construct(FeedServiceProvider $feed, array $args = [])
+    public function __construct(FeedServiceProvider $feed, array $args = [], SettingsPageOptions $settings)
     {
         $this->feed = $feed;
         $this->args = $args;
+        $this->settings = $settings;
     }
 
     /**
@@ -122,7 +125,7 @@ class ProductEntity
 
                     $dcterm->setAttribute(
                         'scheme',
-                        'overheid:Gemeente'
+                        sprintf('overheid:%s', $this->settings->getGovernmentType())
                     );
                     $dcterm->setAttribute(
                         'resourceIdentifier',
@@ -141,7 +144,7 @@ class ProductEntity
         $authority = $this->feed->xml->createElement("overheid:authority");
         $authority->setAttribute(
             'scheme',
-            'overheid:Gemeente'
+            sprintf('overheid:%s', $this->settings->getGovernmentType())
         );
         $authority->setAttribute(
             'resourceIdentifier',

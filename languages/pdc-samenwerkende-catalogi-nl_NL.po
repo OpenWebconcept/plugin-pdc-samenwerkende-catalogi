@@ -43,3 +43,11 @@ msgstr "Gemeente URI"
 msgid "URI from this list http://standaarden.overheid.nl/owms/terms/Gemeente"
 msgstr ""
 "URI vanuit deze lijst http://standaarden.overheid.nl/owms/terms/Gemeente"
+
+#: config/settings.php:25
+msgid "Government type"
+msgstr "Type overheid"
+
+#: config/settings.php:26
+msgid "Will be used in the xml-feed. Example: scheme=\"overheid:Gemeente\""
+msgstr "Wordt gebruikt in de xml-feed. Voorbeeld: scheme=\"overheid:Gemeente\""

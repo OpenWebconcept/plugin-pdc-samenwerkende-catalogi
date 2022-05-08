@@ -138,7 +138,7 @@ class FeedServiceProvider extends ServiceProvider
                 'upl_resource'               => $scItem->getUplResource(),
             ];
 
-            $scProduct = new ProductEntity($this, $scProductArgs);
+            $scProduct = new ProductEntity($this, $scProductArgs, $this->settings);
             $xmlProducten->appendChild($scProduct->getXML());
         }
 

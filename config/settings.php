@@ -21,6 +21,13 @@ return [
                     'id'   => 'setting_town_council_uri',
                     'type' => 'text',
                 ],
+                'government_type' => [
+                    'name' => __('Government type', 'pdc-samenwerkende-catalogi'),
+                    'desc' => __('Will be used in the xml-feed. Example: scheme="overheid:Gemeente"', 'pdc-samenwerkende-catalogi'),
+                    'id'   => 'setting_government_type',
+                    'type' => 'text',
+                    'placeholder' => 'Gemeente'
+                ],
             ],
         ],
     ],

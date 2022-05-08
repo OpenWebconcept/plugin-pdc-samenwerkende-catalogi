@@ -39,6 +39,11 @@ class SettingsPageOptions
         return $this->settings['_owc_setting_town_council_uri'] ?? '';
     }
 
+    public function getGovernmentType(): string
+    {
+        return $this->settings['_owc_setting_government_type'] ?? 'Gemeente';
+    }
+
     public static function make(): self
     {
         $defaultSettings = [

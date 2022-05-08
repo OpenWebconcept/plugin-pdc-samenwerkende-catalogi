@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.0.6
+
+### Features
+
+-   (feat): government type setting, used in feed.
+
 ## Version 2.0.5
 
 ### Features
