@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.0.7
+
+### Features
+
+-   (refactor): sc feed pdc-type tax query, use all terms slugs except internal.
+
 ## Version 2.0.6
 
 ### Features

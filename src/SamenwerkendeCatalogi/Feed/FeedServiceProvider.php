@@ -160,12 +160,21 @@ class FeedServiceProvider extends ServiceProvider
             ],
         ];
 
+        $typeSlugs = get_terms('pdc-type', array('fields'=>'slugs'));
+
+        if (! is_array($typeSlugs)) {
+            $typeSlugs = [];
+        }
+
         $tax_pdc_type_query = [
             'relation' => 'OR',
             [
                 'taxonomy' => 'pdc-type',
                 'field' => 'slug',
-                'terms' => 'external'
+                'terms' => array_filter($typeSlugs, function ($slug) {
+                    return $slug !== 'internal';
+                }),
+                'operator' => 'IN'
             ],
             [
                 'taxonomy' => 'pdc-type',
