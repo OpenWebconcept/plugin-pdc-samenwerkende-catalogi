@@ -37,5 +37,20 @@ $autoloader = new Autoloader();
  * and wp_loaded action hooks.
  */
 add_action('plugins_loaded', function () {
+    if (! class_exists('OWC\PDC\Base\Foundation\Plugin')) {
+        add_action('admin_notices', function () {
+            $list = '<p>' . __(
+                'The following plugins are required to use the PDC Samenwerkende Catalogi:',
+                'pdc-base'
+            ) . '</p><ol><li>OpenPDC Base (version >= 3.0.0)</li></ol>';
+
+            printf('<div class="notice notice-error"><p>%s</p></div>', $list);
+        });
+
+        \deactivate_plugins(\plugin_basename(__FILE__));
+
+        return;
+    }
+
     $plugin = (new Plugin(__DIR__))->boot();
 }, 10);
