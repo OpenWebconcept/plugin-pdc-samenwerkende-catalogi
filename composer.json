@@ -9,20 +9,13 @@
     }
   ],
   "type": "wordpress-plugin",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@bitbucket.org:openwebconcept/plugin-pdc-base.git"
-    }
-  ],
   "require": {
-    "php": ">=7.0",
-    "plugin/pdc-base": "^3.0.0"
+    "php": ">=7.0"
   },
   "require-dev": {
     "mockery/mockery": "*",
     "phpunit/phpunit": "~8.0",
-    "10up/wp_mock": "dev-master",
+    "10up/wp_mock": "~0.4",
     "friendsofphp/php-cs-fixer": "^2.16"
   },
   "autoload": {
