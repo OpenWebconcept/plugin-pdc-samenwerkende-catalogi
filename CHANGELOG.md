@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.0.8
+
+### Chore
+
+-   Update dependencies + reference pdc-base plugin from BitBucket to GitHub
+
 ## Version 2.0.7
 
 ### Features
