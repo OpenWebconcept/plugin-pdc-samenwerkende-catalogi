@@ -26,8 +26,12 @@ if (!defined('WPINC')) {
 /**
  * manual loaded file: the autoloader.
  */
-require_once __DIR__ . '/autoloader.php';
-$autoloader = new Autoloader();
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+} else {
+    require_once __DIR__ . '/autoloader.php';
+    $autoloader = new Autoloader();
+}
 
 /**
  * Begin execution of the plugin
