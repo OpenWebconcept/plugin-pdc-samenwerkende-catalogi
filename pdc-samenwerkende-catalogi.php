@@ -45,7 +45,7 @@ add_action('plugins_loaded', function () {
         add_action('admin_notices', function () {
             $list = '<p>' . __(
                 'The following plugins are required to use the PDC Samenwerkende Catalogi:',
-                'pdc-base'
+                'pdc-samenwerkende-catalogi'
             ) . '</p><ol><li>OpenPDC Base (version >= 3.0.0)</li></ol>';
 
             printf('<div class="notice notice-error"><p>%s</p></div>', $list);
