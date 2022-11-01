@@ -1,0 +1,21 @@
+name: "plugin-pdc-samenwerkende-catalogi"
+
+publiccodeYmlVersion: 1.0
+url: "https://github.com/OpenWebconcept/plugin-pdc-samenwerkende-catalogi"
+
+platforms:
+  - "web"
+
+categories:
+  - "application-development"
+
+softwareType: "softwareAddon"
+
+description:
+  localisedName: "PDC Samenwerkende Catalogi"
+  shortDescription: "Deze plugin zorgt ervoor dat er een feed voor de Samenwerkende Catalogi wordt gegenereerd (/feed/sc/)"
+  longDescription: "Deze plugin zorgt ervoor dat er een feed voor de Samenwerkende Catalogi wordt gegenereerd (/feed/sc/)"
+
+nl:
+  commonground:
+    layerType: "service"
