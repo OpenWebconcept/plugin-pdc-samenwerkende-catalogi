@@ -4,9 +4,11 @@ This README documents whatever steps are necessary to get this plugin up and run
 
 ### How do I get set up? ###
 
+* Prerequisite: install [OpenPDC](https://github.com/openwebconcept/plugin-pdc-base) in this exact directory: /wp-content/plugins/pdc-base
 * Unzip and/or move all files to the /wp-content/plugins/pdc-samenwerkende-catalogi directory
 * Log into WordPress admin and activate the ‘PDC Samenwerkende Catalogi’ plugin through the ‘Plugins’ menu
 * Go to the 'PDC instellingen pagina' in the left-hand menu to enter some of the required settings
+* Open the Samenwerkende Catalog XML feed at `/?feed=sc`
 
 ### Filters & Actions
 
