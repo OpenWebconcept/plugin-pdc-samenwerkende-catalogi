@@ -10,7 +10,8 @@
   ],
   "type": "wordpress-plugin",
   "require": {
-    "php": "^7.4|^8.0"
+    "php": "^7.4|^8.0",
+    "yahnis-elsts/plugin-update-checker": "^5.1"
   },
   "require-dev": {
     "mockery/mockery": "*",
@@ -36,6 +37,7 @@
       "@unit",
       "@integration"
     ],
-    "format": "vendor/bin/php-cs-fixer fix"
+    "format": "vendor/bin/php-cs-fixer fix",
+    "package": "chmod +x ./bin/package.sh && ./bin/package.sh"
   }
 }
