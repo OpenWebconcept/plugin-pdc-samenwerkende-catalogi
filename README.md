@@ -1,12 +1,23 @@
-# README #
+# README
 
 This README documents whatever steps are necessary to get this plugin up and running.
 
-### How do I get set up? ###
+## Getting started
+### Installation
 
-* Unzip and/or move all files to the /wp-content/plugins/pdc-samenwerkende-catalogi directory
-* Log into WordPress admin and activate the ‘PDC Samenwerkende Catalogi’ plugin through the ‘Plugins’ menu
-* Go to the 'PDC instellingen pagina' in the left-hand menu to enter some of the required settings
+#### For users
+1. Download the latest release from [the releases page](https://github.com/OpenWebconcept/plugin-pdc-faq/releases)
+2. Unzip and move all files to the `/wp-content/plugins/pdc-samenwerkende-catalogi` directory.
+3. Log into the WordPress admin and activate the 'PDC Samenwerkende Catalogi' plugin through the 'plugins' menu
+4. Go to the 'PDC instellingen pagina' in the left-hand menu to enter some of the required settings
+
+#### For developers
+To contribute to this project, no dependencies are required. However, you will need to download [Composer](https://getcomposer.org/) to run tests or create an optimized build of the plugin.
+
+1. Clone this repository to your machine and/or WordPress installation
+2. Optionally use Composer (`composer install`) to install the dev dependencies
+
+To create an optimized and zipped build, run the `composer run package` command. This requires `Composer`, `rsync` and `zip` to run.
 
 ### Filters & Actions
 
@@ -22,7 +33,7 @@ See OWC\PDC\Base\Foundation\Config->set method for a way to change this plugins 
 Via the plugin object the following config settings can be adjusted
 - settings
 
-### Translations ###
+### Translations
 
 If you want to use your own set of labels/names/descriptions and so on you can do so.
 All text output in this plugin is controlled via the gettext methods.
@@ -39,7 +50,7 @@ This plugin provides an easy interface for custom translations and a way to stor
 For instructions how to use the 'Loco Translate' plugin, we advice you to read the Beginners's guide page on their website: https://localise.biz/wordpress/plugin/beginners
 or start at the homepage: https://localise.biz/wordpress/plugin
 
-### Running tests ###
+### Running tests
 To run the Unit tests go to a command-line.
 ```bash
 cd /path/to/wordpress/htdocs/wp-content/plugins/pdc-samenwerkende-catalogi/
@@ -52,12 +63,12 @@ For code coverage report, generate report with command line command and view res
 composer unit-coverage
 ```
 
-### Contribution guidelines ###
+### Contribution guidelines
 
 ##### Writing tests
 Have a look at the code coverage reports to see where more coverage can be obtained.
 Write tests.
 Create a Pull request to the OWC repository.
 
-### Who do I talk to? ###
+### Who do I talk to?
 If you have questions about or suggestions for this plugin, please contact <a href="mailto:hpeters@Buren.nl">Holger Peters</a> from Gemeente Buren.

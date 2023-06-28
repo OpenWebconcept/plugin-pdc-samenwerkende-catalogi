@@ -7,6 +7,7 @@
 namespace OWC\PDC\SamenwerkendeCatalogi\Foundation;
 
 use OWC\PDC\Base\Foundation\Plugin as BasePlugin;
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 /**
  * Sets the name and version of the plugin.
@@ -27,5 +28,24 @@ class Plugin extends BasePlugin
      *
      * @const string VERSION
      */
-    const VERSION = '2.0.9';
+    const VERSION = '2.1.0';
+
+    protected function checkForUpdate()
+    {
+        if (! class_exists(PucFactory::class) || $this->isExtendedClass()) {
+            return;
+        }
+
+        try {
+            $updater = PucFactory::buildUpdateChecker(
+                'https://github.com/OpenWebconcept/plugin-pdc-samenwerkende-catalogi/',
+                $this->rootPath . '/pdc-samenwerkende-catalogi.php',
+                self::NAME
+            );
+
+            $updater->getVcsApi()->enableReleaseAssets();
+        } catch (\Throwable $e) {
+            error_log($e->getMessage());
+        }
+    }
 }
