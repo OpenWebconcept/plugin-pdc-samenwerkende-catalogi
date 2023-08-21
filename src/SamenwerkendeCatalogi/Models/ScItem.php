@@ -33,7 +33,7 @@ class ScItem extends Item
     /**
      * @param array $doelgroepen
      * @param object $doelgroepTerm
-     * 
+     *
      * @return array
      */
     private function assignDoelgroepen($doelgroepen = [], $doelgroepTerm): array
@@ -58,9 +58,6 @@ class ScItem extends Item
         return $doelgroepen;
     }
 
-    /**
-     * @return string
-     */
     public function getUplName(): string
     {
         $uplName = get_post_meta($this->getID(), '_owc_pdc_upl_naam', true);
@@ -69,29 +66,34 @@ class ScItem extends Item
             $uplName = $this->getTitle();
         }
 
-        return $this->stripUpl($uplName);
+        return $uplName;
     }
 
-    /**
-     * @return string
-     */
+    public function getStrippedUplName(): string
+    {
+        return $this->stripUpl($this->getUplName());
+    }
+
     public function getUplResource(): string
     {
-        return 'http://standaarden.overheid.nl/owms/terms/' . $this->getUplName();
+        $uplResource = get_post_meta($this->getID(), '_owc_pdc_upl_resource', true);
+
+        if (empty($uplResource)) {
+            $uplResource = $this->getStrippedUplName();
+        }
+
+        return 'http://standaarden.overheid.nl/owms/terms/' . $uplResource;
     }
 
     /**
      * Strip upl to required format.
-     *
-     * @param string $string
-     * @return string
      */
     protected function stripUpl(string $string): string
     {
-        // replace all spaces with dashes.
+        // Replace all spaces with dashes.
         $string = str_replace(' ', '-', strtolower($string));
 
-        // replace all the characters except lowercase letters and dashes.
+        // Replace all the characters except lowercase letters and dashes.
         return preg_replace("/[^a-z|-]/", "", $string);
     }
 }

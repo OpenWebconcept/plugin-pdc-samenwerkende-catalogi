@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.1.1
+
+### Refactor
+
+-   Usage of upl resource.
+
 ## Version 2.1.0
 
 ### Features

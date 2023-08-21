@@ -14,13 +14,12 @@ use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
  */
 class Plugin extends BasePlugin
 {
-
     /**
      * Name of the plugin.
      *
      * @const string NAME
      */
-    const NAME = 'pdc-samenwerkende-catalogi';
+    public const NAME = 'pdc-samenwerkende-catalogi';
 
     /**
      * Version of the plugin.
@@ -28,7 +27,7 @@ class Plugin extends BasePlugin
      *
      * @const string VERSION
      */
-    const VERSION = '2.1.0';
+    public const VERSION = '2.1.1';
 
     protected function checkForUpdate()
     {
