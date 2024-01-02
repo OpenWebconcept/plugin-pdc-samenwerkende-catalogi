@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * The base of the plugin.
@@ -27,7 +27,7 @@ class Plugin extends BasePlugin
      *
      * @const string VERSION
      */
-    public const VERSION = '2.1.1';
+    public const VERSION = '2.1.2';
 
     protected function checkForUpdate()
     {

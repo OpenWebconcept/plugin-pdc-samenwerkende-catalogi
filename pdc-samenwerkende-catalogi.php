@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Plugin Name:       PDC Samenwerkende Catalogi
  * Plugin URI:        https://www.openwebconcept.nl/
  * Description:       Plugin to create a XML feed according to the Samenwerkende Catalogi requirements.
- * Version:           2.1.1
+ * Version:           2.1.2
  * Author:            Yard | Digital Agency
  * Author URI:        https://www.yard.nl/
  * License:           GPL-3.0

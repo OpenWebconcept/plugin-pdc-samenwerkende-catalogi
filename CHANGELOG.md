@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.1.2
+
+### Refactor
+
+-   Only use the prefix 'http://standaarden.overheid.nl/owms/terms/' while retrieving the upl resource url but the value is empty.
+
 ## Version 2.1.1
 
 ### Refactor

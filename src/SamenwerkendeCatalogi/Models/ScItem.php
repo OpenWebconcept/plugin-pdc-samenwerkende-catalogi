@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace OWC\PDC\SamenwerkendeCatalogi\Models;
 
@@ -12,9 +12,9 @@ class ScItem extends Item
     public function getDoelgroepen(): array
     {
         $doelgroepTerms = $this->getTerms('pdc-doelgroep');
-        $doelgroepen    = [];
+        $doelgroepen = [];
 
-        if (!is_wp_error($doelgroepTerms) && !empty($doelgroepTerms)) {
+        if (! is_wp_error($doelgroepTerms) && ! empty($doelgroepTerms)) {
             foreach ($doelgroepTerms as $doelgroepTerm) {
                 $doelgroepen = $this->assignDoelgroepen($doelgroepen, $doelgroepTerm);
             }
@@ -79,10 +79,10 @@ class ScItem extends Item
         $uplResource = get_post_meta($this->getID(), '_owc_pdc_upl_resource', true);
 
         if (empty($uplResource)) {
-            $uplResource = $this->getStrippedUplName();
+            $uplResource = sprintf('http://standaarden.overheid.nl/owms/terms/%s', $this->getStrippedUplName());
         }
 
-        return 'http://standaarden.overheid.nl/owms/terms/' . $uplResource;
+        return $uplResource;
     }
 
     /**
