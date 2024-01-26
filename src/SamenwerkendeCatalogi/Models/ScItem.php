@@ -43,10 +43,8 @@ class ScItem extends Item
                 $doelgroepen[] = 'particulier';
 
                 break;
+			case 'ondernemer':
             case 'ondernemers':
-                $doelgroepen[] = 'ondernemer';
-
-                break;
             case 'maatschappelijkeorganisaties':
                 $doelgroepen[] = 'ondernemer';
 

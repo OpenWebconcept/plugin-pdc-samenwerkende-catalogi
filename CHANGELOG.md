@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.1.3
+
+### Fixed
+
+-   Map audience 'ondernemer' correctly
+
 ## Version 2.1.2
 
 ### Refactor
