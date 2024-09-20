@@ -209,17 +209,19 @@ class ProductEntity
         $onlineAanvragen = $this->feed->xml->createElement("overheidproduct:onlineAanvragen", $kenmerk);
         $scMeta->appendChild($onlineAanvragen);
 
-        $upl = $this->feed->xml->createElement("overheidproduct:uniformeProductnaam", $this->args['upl_name']);
-        $upl->setAttribute(
-            'scheme',
-            'overheid:UniformeProductnaam'
-        );
-        $upl->setAttribute(
-            'resourceIdentifier',
-            $this->args['upl_resource']
-        );
+		if (! empty($this->args['upl_name']) && ! empty($this->args['upl_resource'])) {
+			$upl = $this->feed->xml->createElement("overheidproduct:uniformeProductnaam", $this->args['upl_name']);
+			$upl->setAttribute(
+				'scheme',
+				'overheid:UniformeProductnaam'
+			);
+			$upl->setAttribute(
+				'resourceIdentifier',
+				$this->args['upl_resource']
+			);
 
-        $scMeta->appendChild($upl);
+			$scMeta->appendChild($upl);
+		}
 
         return $scMeta;
     }

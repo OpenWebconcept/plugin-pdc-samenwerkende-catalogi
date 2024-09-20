@@ -60,11 +60,7 @@ class ScItem extends Item
     {
         $uplName = get_post_meta($this->getID(), '_owc_pdc_upl_naam', true);
 
-        if (empty($uplName)) {
-            $uplName = $this->getTitle();
-        }
-
-        return $uplName;
+        return 0 < strlen($uplName) ? $uplName : '';
     }
 
     public function getStrippedUplName(): string
@@ -76,11 +72,7 @@ class ScItem extends Item
     {
         $uplResource = get_post_meta($this->getID(), '_owc_pdc_upl_resource', true);
 
-        if (empty($uplResource)) {
-            $uplResource = sprintf('http://standaarden.overheid.nl/owms/terms/%s', $this->getStrippedUplName());
-        }
-
-        return $uplResource;
+        return 0 < strlen($uplResource) ? $uplResource : '';
     }
 
     /**
