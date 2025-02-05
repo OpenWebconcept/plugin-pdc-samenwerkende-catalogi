@@ -13,27 +13,10 @@ use OWC\PDC\SamenwerkendeCatalogi\Settings\SettingsPageOptions;
  */
 class ProductEntity
 {
+    protected FeedServiceProvider $feed;
+    protected array $args;
+    protected SettingsPageOptions $settings;
 
-    /**
-     * Instance of the FeedServiceProvider object
-     *
-     * @var FeedServiceProvider
-     */
-    protected $feed;
-
-    /**
-     * Arguments to create the XML.
-     *
-     * @var array
-     */
-    protected $args;
-
-    /**
-     * Constructs the ProductEntity.
-     *
-     * @param FeedServiceProvider $feed
-     * @param array $args
-     */
     public function __construct(FeedServiceProvider $feed, array $args = [], SettingsPageOptions $settings)
     {
         $this->feed = $feed;
@@ -160,14 +143,12 @@ class ProductEntity
 
     /**
      * Creates OWMS Mantel node.
-     *
-     * @return object
      */
     private function getMetaMantel(): object
     {
         $owmsmantel = $this->feed->xml->createElement("overheidproduct:owmsmantel");
 
-        foreach ($this->args['doelgroepen'] as $doelgroep) {
+        foreach ($this->args['doelgroepen'] ?? [] as $doelgroep) {
             $dcterm = $this->feed->xml->createElement("dcterms:audience", $doelgroep);
             $dcterm->setAttribute(
                 'scheme',
@@ -176,12 +157,17 @@ class ProductEntity
             $owmsmantel->appendChild($dcterm);
         }
 
+        // Use excerpt if not empty, otherwise fallback to title.
+        $abstractContent = wp_strip_all_tags($this->args['excerpt'] ?: $this->args['title'], true);
+
+        // Prepare element and section.
         $dcterm = $this->feed->xml->createElement("dcterms:abstract");
+        $cdata = $this->feed->xml->createCDATASection($abstractContent);
 
-        $abstract = wp_strip_all_tags($this->args['excerpt'], $remove_breaks = true);
-
-        $cdata = $this->feed->xml->createCDATASection($abstract);
+        // Append section to element.
         $dcterm->appendChild($cdata);
+
+        // Append element to node.
         $owmsmantel->appendChild($dcterm);
 
         return $owmsmantel;
@@ -189,15 +175,13 @@ class ProductEntity
 
     /**
      * Creates SC META node
-     *
-     * @return object
      */
     private function getMetaSc(): object
     {
         $scMeta = $this->feed->xml->createElement("overheidproduct:scmeta");
 
         $productId = $this->feed->xml->createElement("overheidproduct:productID");
-        $cdata     = $this->feed->xml->createCDATASection($this->args['id']);
+        $cdata = $this->feed->xml->createCDATASection($this->args['id']);
         $productId->appendChild($cdata);
         $scMeta->appendChild($productId);
 
@@ -209,19 +193,19 @@ class ProductEntity
         $onlineAanvragen = $this->feed->xml->createElement("overheidproduct:onlineAanvragen", $kenmerk);
         $scMeta->appendChild($onlineAanvragen);
 
-		if (! empty($this->args['upl_name']) && ! empty($this->args['upl_resource'])) {
-			$upl = $this->feed->xml->createElement("overheidproduct:uniformeProductnaam", $this->args['upl_name']);
-			$upl->setAttribute(
-				'scheme',
-				'overheid:UniformeProductnaam'
-			);
-			$upl->setAttribute(
-				'resourceIdentifier',
-				$this->args['upl_resource']
-			);
+        if (! empty($this->args['upl_name']) && ! empty($this->args['upl_resource'])) {
+            $upl = $this->feed->xml->createElement("overheidproduct:uniformeProductnaam", $this->args['upl_name']);
+            $upl->setAttribute(
+                'scheme',
+                'overheid:UniformeProductnaam'
+            );
+            $upl->setAttribute(
+                'resourceIdentifier',
+                $this->args['upl_resource']
+            );
 
-			$scMeta->appendChild($upl);
-		}
+            $scMeta->appendChild($upl);
+        }
 
         return $scMeta;
     }
