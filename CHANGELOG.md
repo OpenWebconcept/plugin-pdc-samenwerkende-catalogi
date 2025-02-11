@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.2.1
+
+### Changed
+
+- Use post title as fallback for when excerpt is empty while populating dcterms abstract element in feed
+
 ## Version 2.2.0
 
 ### Changed
