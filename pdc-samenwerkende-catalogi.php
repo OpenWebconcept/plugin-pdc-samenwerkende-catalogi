@@ -56,5 +56,8 @@ add_action('plugins_loaded', function () {
         return;
     }
 
-    $plugin = (new Plugin(__DIR__))->boot();
+	add_action('after_setup_theme', function () {
+		(new Plugin(__DIR__))->boot();
+	});
+
 }, 10);
