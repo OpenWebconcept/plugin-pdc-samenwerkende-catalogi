@@ -120,8 +120,6 @@ class FeedServiceProvider extends ServiceProvider
         $queryArgs      = $this->getQueryArgs();
 
         foreach ((new ScRepository())->query($queryArgs)->all() as $scItem) {
-            $doelgroepen            = $scItem->getDoelgroepen();
-
             $scProductArgs = [
                 'id'                         => $scItem->getID(),
                 'slug'                       => $scItem->getPostName(),
@@ -129,7 +127,7 @@ class FeedServiceProvider extends ServiceProvider
                 'excerpt'                    => $scItem->getExcerpt(60),
                 'modified'                   => $scItem->getPostModified(true)->format('Y-m-d'),
                 'digid'                      => has_term('digid', 'pdc-aspect', $scItem->getID()),
-                'doelgroepen'                => $doelgroepen,
+                'doelgroepen'                => $scItem->getDoelgroepen(),
                 'town_council_label'         => $townCouncilLabel,
                 'town_council_onderwerp_url' => $scItem->getTownCouncilOnderwerpUrl(),
                 'town_council_uri'           => $townCouncilUri,
