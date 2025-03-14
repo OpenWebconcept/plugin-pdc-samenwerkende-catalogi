@@ -56,6 +56,17 @@ class ScItem extends Item
         return $doelgroepen;
     }
 
+	public function getTownCouncilOnderwerpUrl(): string
+	{
+		$portalUrl = $this->getPortalURL();
+
+		if ( filter_var($portalUrl, FILTER_VALIDATE_URL)) {
+        	return $portalUrl;
+        }
+
+		return $this->getLink();
+	}
+
     public function getUplName(): string
     {
         $uplName = get_post_meta($this->getID(), '_owc_pdc_upl_naam', true);
