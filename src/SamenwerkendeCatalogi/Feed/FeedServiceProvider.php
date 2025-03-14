@@ -103,13 +103,6 @@ class FeedServiceProvider extends ServiceProvider
      */
     public function createXmlFeed()
     {
-        $defaultSettings = [
-            '_owc_setting_portal_url'           => '',
-            '_owc_setting_portal_pdc_item_slug' => '',
-            '_owc_setting_town_council_label'   => '',
-            '_owc_setting_town_council_uri'     => '',
-        ];
-
         $townCouncilLabel = $this->settings->getTownCouncilLabel();
         $townCouncilUri = $this->settings->getTownCouncilURI();
 
