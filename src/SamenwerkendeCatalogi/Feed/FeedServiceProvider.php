@@ -103,13 +103,6 @@ class FeedServiceProvider extends ServiceProvider
      */
     public function createXmlFeed()
     {
-        $defaultSettings = [
-            '_owc_setting_portal_url'           => '',
-            '_owc_setting_portal_pdc_item_slug' => '',
-            '_owc_setting_town_council_label'   => '',
-            '_owc_setting_town_council_uri'     => '',
-        ];
-
         $townCouncilLabel = $this->settings->getTownCouncilLabel();
         $townCouncilUri = $this->settings->getTownCouncilURI();
 
@@ -120,9 +113,6 @@ class FeedServiceProvider extends ServiceProvider
         $queryArgs      = $this->getQueryArgs();
 
         foreach ((new ScRepository())->query($queryArgs)->all() as $scItem) {
-            $doelgroepen            = $scItem->getDoelgroepen();
-            $portalUrl              = $scItem->getPortalURL();
-
             $scProductArgs = [
                 'id'                         => $scItem->getID(),
                 'slug'                       => $scItem->getPostName(),
@@ -130,9 +120,9 @@ class FeedServiceProvider extends ServiceProvider
                 'excerpt'                    => $scItem->getExcerpt(60),
                 'modified'                   => $scItem->getPostModified(true)->format('Y-m-d'),
                 'digid'                      => has_term('digid', 'pdc-aspect', $scItem->getID()),
-                'doelgroepen'                => $doelgroepen,
+                'doelgroepen'                => $scItem->getDoelgroepen(),
                 'town_council_label'         => $townCouncilLabel,
-                'town_council_onderwerp_url' => $portalUrl,
+                'town_council_onderwerp_url' => $scItem->getTownCouncilOnderwerpUrl(),
                 'town_council_uri'           => $townCouncilUri,
                 'upl_name'                   => $scItem->getUplName(),
                 'upl_resource'               => $scItem->getUplResource(),
