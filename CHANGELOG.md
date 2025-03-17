@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Version 2.2.3
+
+### Fix
+
+- Use full URL as identifier if pdc-item is displayed in the same site as the feed
+
+## Version 2.2.2
+
+### Fix
+
+- Text domain for translations since WordPress 6.7
+
 ## Version 2.2.1
 
 ### Changed
