@@ -19,8 +19,8 @@ class ProductEntity
 
     public function __construct(FeedServiceProvider $feed, array $args = [], SettingsPageOptions $settings)
     {
-        $this->feed = $feed;
-        $this->args = $args;
+        $this->feed     = $feed;
+        $this->args     = $args;
         $this->settings = $settings;
     }
 
@@ -162,7 +162,7 @@ class ProductEntity
 
         // Prepare element and section.
         $dcterm = $this->feed->xml->createElement("dcterms:abstract");
-        $cdata = $this->feed->xml->createCDATASection($abstractContent);
+        $cdata  = $this->feed->xml->createCDATASection($abstractContent);
 
         // Append section to element.
         $dcterm->appendChild($cdata);
@@ -181,7 +181,7 @@ class ProductEntity
         $scMeta = $this->feed->xml->createElement("overheidproduct:scmeta");
 
         $productId = $this->feed->xml->createElement("overheidproduct:productID");
-        $cdata = $this->feed->xml->createCDATASection($this->args['id']);
+        $cdata     = $this->feed->xml->createCDATASection($this->args['id']);
         $productId->appendChild($cdata);
         $scMeta->appendChild($productId);
 

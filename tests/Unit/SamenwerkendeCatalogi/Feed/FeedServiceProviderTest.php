@@ -5,8 +5,8 @@ namespace OWC\PDC\SamenwerkendeCatalogi\Tests\Feed;
 use Mockery as m;
 use OWC\PDC\Base\Foundation\Config;
 use OWC\PDC\Base\Foundation\Loader;
-use OWC\PDC\SamenwerkendeCatalogi\Foundation\Plugin;
 use OWC\PDC\SamenwerkendeCatalogi\Feed\FeedServiceProvider;
+use OWC\PDC\SamenwerkendeCatalogi\Foundation\Plugin;
 use OWC\PDC\SamenwerkendeCatalogi\Tests\Unit\TestCase;
 use WP_Mock;
 
@@ -22,7 +22,7 @@ class FeedServiceProviderTest extends TestCase
                 '_owc_setting_portal_pdc_item_slug' => '',
                 '_owc_setting_town_council_label'   => '',
                 '_owc_setting_town_council_uri'     => '',
-            ]
+            ],
         ]);
 
         \WP_Mock::userFunction('get_option', [
@@ -31,7 +31,7 @@ class FeedServiceProviderTest extends TestCase
                 '_owc_setting_portal_pdc_item_slug' => '',
                 '_owc_setting_town_council_label'   => '',
                 '_owc_setting_town_council_uri'     => '',
-            ]
+            ],
         ]);
     }
 

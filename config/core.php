@@ -2,12 +2,12 @@
 
 return [
     /**
-             * Service Providers.
-         */
+     * Service Providers.
+     */
     'providers' => [
         /**
-     * Global providers.
-     */
+         * Global providers.
+         */
         OWC\PDC\SamenwerkendeCatalogi\Feed\FeedServiceProvider::class,
         OWC\PDC\SamenwerkendeCatalogi\Settings\SettingsServiceProvider::class,
 

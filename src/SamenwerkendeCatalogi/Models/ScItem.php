@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace OWC\PDC\SamenwerkendeCatalogi\Models;
 
@@ -12,7 +14,7 @@ class ScItem extends Item
     public function getDoelgroepen(): array
     {
         $doelgroepTerms = $this->getTerms('pdc-doelgroep');
-        $doelgroepen = [];
+        $doelgroepen    = [];
 
         if (! is_wp_error($doelgroepTerms) && ! empty($doelgroepTerms)) {
             foreach ($doelgroepTerms as $doelgroepTerm) {
@@ -43,7 +45,7 @@ class ScItem extends Item
                 $doelgroepen[] = 'particulier';
 
                 break;
-			case 'ondernemer':
+            case 'ondernemer':
             case 'ondernemers':
             case 'maatschappelijkeorganisaties':
                 $doelgroepen[] = 'ondernemer';
@@ -56,16 +58,16 @@ class ScItem extends Item
         return $doelgroepen;
     }
 
-	public function getTownCouncilOnderwerpUrl(): string
-	{
-		$portalUrl = $this->getPortalURL();
+    public function getTownCouncilOnderwerpUrl(): string
+    {
+        $portalUrl = $this->getPortalURL();
 
-		if ( filter_var($portalUrl, FILTER_VALIDATE_URL)) {
-        	return $portalUrl;
+        if (filter_var($portalUrl, FILTER_VALIDATE_URL)) {
+            return $portalUrl;
         }
 
-		return $this->getLink();
-	}
+        return $this->getLink();
+    }
 
     public function getUplName(): string
     {

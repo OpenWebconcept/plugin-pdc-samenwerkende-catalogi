@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * Plugin Name:       PDC Samenwerkende Catalogi
@@ -56,8 +58,7 @@ add_action('plugins_loaded', function () {
         return;
     }
 
-	add_action('after_setup_theme', function () {
-		(new Plugin(__DIR__))->boot();
-	});
-
+    add_action('after_setup_theme', function () {
+        (new Plugin(__DIR__))->boot();
+    });
 }, 10);

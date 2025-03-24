@@ -3,9 +3,9 @@
 namespace OWC\PDC\SamenwerkendeCatalogi\Feed;
 
 use OWC\PDC\Base\Foundation\ServiceProvider;
+use OWC\PDC\SamenwerkendeCatalogi\Foundation\Plugin;
 use OWC\PDC\SamenwerkendeCatalogi\Repositories\ScRepository;
 use OWC\PDC\SamenwerkendeCatalogi\Settings\SettingsPageOptions;
-use OWC\PDC\SamenwerkendeCatalogi\Foundation\Plugin;
 
 /**
  * Provider which adds feeds to the WordPress feed.
@@ -33,7 +33,7 @@ class FeedServiceProvider extends ServiceProvider
      */
     public function __construct(Plugin $plugin)
     {
-        $this->plugin = $plugin;
+        $this->plugin   = $plugin;
         $this->settings = SettingsPageOptions::make();
     }
 
@@ -104,7 +104,7 @@ class FeedServiceProvider extends ServiceProvider
     public function createXmlFeed()
     {
         $townCouncilLabel = $this->settings->getTownCouncilLabel();
-        $townCouncilUri = $this->settings->getTownCouncilURI();
+        $townCouncilUri   = $this->settings->getTownCouncilURI();
 
         // "Create" the document.
         $this->xml = new \DOMDocument("1.0", "utf-8");
@@ -150,7 +150,7 @@ class FeedServiceProvider extends ServiceProvider
             ],
         ];
 
-        $typeSlugs = get_terms('pdc-type', array('fields'=>'slugs'));
+        $typeSlugs = get_terms('pdc-type', ['fields'=>'slugs']);
 
         if (! is_array($typeSlugs)) {
             $typeSlugs = [];
@@ -160,16 +160,16 @@ class FeedServiceProvider extends ServiceProvider
             'relation' => 'OR',
             [
                 'taxonomy' => 'pdc-type',
-                'field' => 'slug',
-                'terms' => array_filter($typeSlugs, function ($slug) {
-                    return $slug !== 'internal';
+                'field'    => 'slug',
+                'terms'    => array_filter($typeSlugs, function ($slug) {
+                    return 'internal' !== $slug;
                 }),
-                'operator' => 'IN'
+                'operator' => 'IN',
             ],
             [
                 'taxonomy' => 'pdc-type',
-                'operator' => 'NOT EXISTS'
-            ]
+                'operator' => 'NOT EXISTS',
+            ],
         ];
 
         return [
@@ -180,7 +180,7 @@ class FeedServiceProvider extends ServiceProvider
             'update_post_meta_cache' => false, //useful when post meta will not be utilized.
             'update_post_term_cache' => true, //useful when taxonomy terms will not be utilized.
             'meta_query'             => $meta_pdc_active_query,
-            'tax_query'              => $tax_pdc_type_query
+            'tax_query'              => $tax_pdc_type_query,
         ];
     }
 
