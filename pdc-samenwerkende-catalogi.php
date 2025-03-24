@@ -26,14 +26,17 @@ if (! defined('WPINC')) {
 }
 
 /**
- * Manual loaded file: the autoloader.
+ * Autoload plugin files if not already loaded
  */
-if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-    require_once __DIR__ . '/vendor/autoload.php';
-} else {
-    require_once __DIR__ . '/autoloader.php';
-    $autoloader = new Autoloader();
+if (! class_exists(\OWC\PDC\SamenwerkendeCatalogi\Foundation\Plugin::class)) {
+    if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+        require_once __DIR__ . '/vendor/autoload.php';
+    } else {
+        require_once __DIR__ . '/autoloader.php';
+        $autoloader = new Autoloader();
+    }
 }
+
 
 /**
  * Begin execution of the plugin
