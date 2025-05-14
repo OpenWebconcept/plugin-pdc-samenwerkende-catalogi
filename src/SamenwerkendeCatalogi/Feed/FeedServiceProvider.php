@@ -2,6 +2,7 @@
 
 namespace OWC\PDC\SamenwerkendeCatalogi\Feed;
 
+use DomDocument;
 use OWC\PDC\Base\Foundation\ServiceProvider;
 use OWC\PDC\SamenwerkendeCatalogi\Foundation\Plugin;
 use OWC\PDC\SamenwerkendeCatalogi\Repositories\ScRepository;
@@ -14,22 +15,11 @@ class FeedServiceProvider extends ServiceProvider
 {
     const PREFIX = '_owc_';
 
-    /**
-     * @var DomDocument
-     */
-    public $xml;
-
-    /**
-     * @var SettingsPageOptions
-     */
-    protected $settings;
+    public DomDocument $xml;
+    protected SettingsPageOptions $settings;
 
     /**
      * Construction of the service provider.
-     *
-     * @param Plugin $plugin
-     *
-     * @return void
      */
     public function __construct(Plugin $plugin)
     {
@@ -51,20 +41,16 @@ class FeedServiceProvider extends ServiceProvider
      * Sets the configuration of the config expander.
      *
      * @param $plugin
-     *
-     * @return void
      */
-    public function filterConfigExpanderPlugin($plugin)
+    public function filterConfigExpanderPlugin($plugin): void
     {
         $plugin->config->set('settings.disable-feed', false);
     }
 
     /**
      * Registers the custom feeds.
-     *
-     * @return void
      */
-    public function registerFeeds()
+    public function registerFeeds(): void
     {
         add_feed('sc', [$this, 'renderXmlFeed']);
     }
@@ -72,36 +58,29 @@ class FeedServiceProvider extends ServiceProvider
     /**
      * Filter the type, this hook wil set the correct HTTP header for Content-type.
      *
-     * @param $content_type
-     * @param $type
-     *
      * @return mixed|void
      */
-    public function xmlFeedType($content_type, $type)
+    public function xmlFeedType(string $contentType, string $type)
     {
         if ('sc' === $type) {
             return feed_content_type('rss-http');
         }
 
-        return $content_type;
+        return $contentType;
     }
 
     /**
      * Renders the XML feed.
-     *
-     * @return string;
      */
-    public function renderXmlFeed()
+    public function renderXmlFeed(): void
     {
         echo $this->createXmlFeed();
     }
 
     /**
      * Gathers the data to combine as feed.
-     *
-     * @return string
      */
-    public function createXmlFeed()
+    public function createXmlFeed(): string
     {
         $townCouncilLabel = $this->settings->getTownCouncilLabel();
         $townCouncilUri   = $this->settings->getTownCouncilURI();
@@ -137,26 +116,49 @@ class FeedServiceProvider extends ServiceProvider
         return $this->xml->saveXML();
     }
 
-    /**
-     * @return array
-     */
     private function getQueryArgs(): array
     {
-        $meta_pdc_active_query = [
+        $args = [
+            'post_type'              => 'pdc-item',
+            'post_status'            => 'publish',
+            'posts_per_page'         => -1,
+            'no_found_rows'          => true, // Useful when pagination is not needed.
+            'update_post_meta_cache' => false, // Useful when post meta will not be utilized.
+            'update_post_term_cache' => true, // Useful when taxonomy terms will not be utilized.
+            'meta_query'             => $this->getMetaQueryArgs(),
+        ];
+
+		if ($taxQueryArgs = $this->getTaxQueryArgs()) {
+			$args['tax_query'] = $taxQueryArgs;
+		}
+
+		return $args;
+    }
+
+	private function getMetaQueryArgs(): array
+	{
+		return [
             [
                 'key'     => '_owc_pdc_active',
                 'value'   => '1',
                 'compare' => '=',
             ],
         ];
+	}
 
-        $typeSlugs = get_terms('pdc-type', ['fields'=>'slugs']);
+	private function getTaxQueryArgs(): array
+	{
+		if (! taxonomy_exists('pdc-type')) {
+			return [];
+		}
 
-        if (! is_array($typeSlugs)) {
-            $typeSlugs = [];
+		$typeSlugs = get_terms('pdc-type', ['fields' => 'slugs']);
+
+        if (! is_array($typeSlugs) || 1 > count($typeSlugs)) {
+            return [];
         }
 
-        $tax_pdc_type_query = [
+		return [
             'relation' => 'OR',
             [
                 'taxonomy' => 'pdc-type',
@@ -171,23 +173,10 @@ class FeedServiceProvider extends ServiceProvider
                 'operator' => 'NOT EXISTS',
             ],
         ];
-
-        return [
-            'post_type'              => 'pdc-item',
-            'post_status'            => 'publish',
-            'posts_per_page'         => -1,
-            'no_found_rows'          => true, //useful when pagination is not needed.
-            'update_post_meta_cache' => false, //useful when post meta will not be utilized.
-            'update_post_term_cache' => true, //useful when taxonomy terms will not be utilized.
-            'meta_query'             => $meta_pdc_active_query,
-            'tax_query'              => $tax_pdc_type_query,
-        ];
-    }
+	}
 
     /**
      * Returns the root node of the xml.
-     *
-     * @return object
      */
     private function getRootNode(): object
     {
