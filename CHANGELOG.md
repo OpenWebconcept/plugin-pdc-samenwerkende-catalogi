@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.2.5
+
+### Fix
+
+- Check if pdc-type tax exists before applying tax query args
+
 ## Version 2.2.4
 
 ### Fix
